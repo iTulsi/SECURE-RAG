@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#36546e"/></marker><style>text{font-family:Arial,sans-serif;fill:#17334b;text-anchor:middle}.b{fill:#edf5fb;stroke:#36546e;stroke-width:2;rx:13}.g{fill:#e8f4ef;stroke:#35765c;stroke-width:2;rx:13}.l{fill:none;stroke:#36546e;stroke-width:2.5;marker-end:url(#a)}.h{font-size:19px;font-weight:bold}.s{font-size:14px}</style></defs>
+<rect x="335" y="18" width="330" height="64" class="b"/><text x="500" y="45" class="h">SECURE KCV + VOOD</text><text x="500" y="66" class="s">official prompts and labels</text>
+<path d="M500 82V104" class="l"/><rect x="335" y="108" width="330" height="66" class="b"/><text x="500" y="136" class="h">Source-grouped pilot</text><text x="500" y="157" class="s">20 URLs, 72 paired questions per task</text>
+<path d="M500 174V199H248V217" class="l"/><path d="M500 174V199H752V217" class="l"/>
+<rect x="48" y="220" width="400" height="100" class="g"/><text x="248" y="250" class="h">E0: Original prompt</text><text x="248" y="274" class="s">Qwen 2.5 3B local model</text><text x="248" y="296" class="s">raw output + token usage</text>
+<rect x="552" y="220" width="400" height="100" class="g"/><text x="752" y="249" class="h">E1: Dense evidence retrieval</text><text x="752" y="273" class="s">top 5 permitted chunks + same model</text><text x="752" y="296" class="s">raw output + token usage</text>
+<path d="M248 320V343H500V365" class="l"/><path d="M752 320V343H500V365" class="l"/>
+<rect x="275" y="368" width="450" height="88" class="b"/><text x="500" y="398" class="h">Strict evaluation + paired comparison</text><text x="500" y="425" class="s">KCV accuracy / coverage, VOOD abstention, errors</text>
+</svg>

@@ -1,0 +1,238 @@
+{
+  "examples_sha256": "92249ba856a09ffe89d2116da6326759e512687bfd3af39113d041d9eeb4a17c",
+  "new_multisource_model_accuracy": null,
+  "results": {
+    "e0": {
+      "metrics": {
+        "abstention": {
+          "f1": 0.5945945945945946,
+          "precision": 0.5789473684210527,
+          "recall": 0.6111111111111112,
+          "unsupported_answer_rate": 0.3888888888888889
+        },
+        "kcv": {
+          "accuracy": 0.4583333333333333,
+          "coverage": 0.5555555555555556,
+          "examples": 72,
+          "gold_labels": {
+            "F": 46,
+            "T": 26
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.6092868988391377,
+          "predicted_labels": {
+            "F": 21,
+            "T": 19,
+            "X": 32
+          }
+        },
+        "overall": {
+          "accuracy": 0.5347222222222222,
+          "coverage": 0.4722222222222222,
+          "examples": 144,
+          "gold_labels": {
+            "F": 46,
+            "T": 26,
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.5470123520912814,
+          "predicted_labels": {
+            "F": 47,
+            "T": 21,
+            "X": 76
+          }
+        },
+        "vood": {
+          "accuracy": 0.6111111111111112,
+          "coverage": 0.3888888888888889,
+          "examples": 72,
+          "gold_labels": {
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.7586206896551724,
+          "predicted_labels": {
+            "F": 26,
+            "T": 2,
+            "X": 44
+          }
+        }
+      },
+      "prediction_sha256": "f0fdf69525d5b3da6920eaea7ceabf0826573deae194d75d7b0d044422aadcf7"
+    },
+    "e1": {
+      "metrics": {
+        "abstention": {
+          "f1": 0.7955801104972376,
+          "precision": 0.6605504587155964,
+          "recall": 1.0,
+          "unsupported_answer_rate": 0.0
+        },
+        "kcv": {
+          "accuracy": 0.4027777777777778,
+          "coverage": 0.4861111111111111,
+          "examples": 72,
+          "gold_labels": {
+            "F": 46,
+            "T": 26
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.571326164874552,
+          "predicted_labels": {
+            "F": 16,
+            "T": 19,
+            "X": 37
+          }
+        },
+        "overall": {
+          "accuracy": 0.7013888888888888,
+          "coverage": 0.24305555555555555,
+          "examples": 144,
+          "gold_labels": {
+            "F": 46,
+            "T": 26,
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.6460774800821137,
+          "predicted_labels": {
+            "F": 16,
+            "T": 19,
+            "X": 109
+          }
+        },
+        "vood": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "examples": 72,
+          "gold_labels": {
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 1.0,
+          "predicted_labels": {
+            "X": 72
+          }
+        }
+      },
+      "prediction_sha256": "cdadd32f16569b845d28dc8165a646cca0938af6f41553a7ea176937fd1385b5"
+    },
+    "e5": {
+      "metrics": {
+        "abstention": {
+          "f1": 0.8181818181818181,
+          "precision": 0.6923076923076923,
+          "recall": 1.0,
+          "unsupported_answer_rate": 0.0
+        },
+        "kcv": {
+          "accuracy": 0.4583333333333333,
+          "coverage": 0.5555555555555556,
+          "examples": 72,
+          "gold_labels": {
+            "F": 46,
+            "T": 26
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.6092868988391377,
+          "predicted_labels": {
+            "F": 21,
+            "T": 19,
+            "X": 32
+          }
+        },
+        "overall": {
+          "accuracy": 0.7291666666666666,
+          "coverage": 0.2777777777777778,
+          "examples": 144,
+          "gold_labels": {
+            "F": 46,
+            "T": 26,
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.6789185386200312,
+          "predicted_labels": {
+            "F": 21,
+            "T": 19,
+            "X": 104
+          }
+        },
+        "vood": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "examples": 72,
+          "gold_labels": {
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 1.0,
+          "predicted_labels": {
+            "X": 72
+          }
+        }
+      },
+      "prediction_sha256": "051c7639f72a902902cfe6b6128aeac9124cf253190093bc3dab78426a7e9263"
+    },
+    "e6": {
+      "metrics": {
+        "abstention": {
+          "f1": 0.8181818181818181,
+          "precision": 0.6923076923076923,
+          "recall": 1.0,
+          "unsupported_answer_rate": 0.0
+        },
+        "kcv": {
+          "accuracy": 0.4861111111111111,
+          "coverage": 0.5555555555555556,
+          "examples": 72,
+          "gold_labels": {
+            "F": 46,
+            "T": 26
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.6474553420963937,
+          "predicted_labels": {
+            "F": 23,
+            "T": 17,
+            "X": 32
+          }
+        },
+        "overall": {
+          "accuracy": 0.7430555555555556,
+          "coverage": 0.2777777777777778,
+          "examples": 144,
+          "gold_labels": {
+            "F": 46,
+            "T": 26,
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 0.7043641674582019,
+          "predicted_labels": {
+            "F": 23,
+            "T": 17,
+            "X": 104
+          }
+        },
+        "vood": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "examples": 72,
+          "gold_labels": {
+            "X": 72
+          },
+          "invalid_predictions": 0,
+          "macro_f1": 1.0,
+          "predicted_labels": {
+            "X": 72
+          }
+        }
+      },
+      "prediction_sha256": "8dfe5fa43b261fce4460775085d1b885ca1e1ead16b16ed4f6cefb4b8f032bcc"
+    }
+  },
+  "status": "Recomputed from recovered saved pilot predictions; no new model inference",
+  "tests_passed": 39
+}

@@ -242,3 +242,8 @@ python -m compileall -q src tests
 
 - Official benchmark: https://github.com/aiforsec/SECURE
 - Paper: https://arxiv.org/abs/2405.20441
+# Current submission
+
+Read [SUBMIT_THIS.md](SUBMIT_THIS.md) for verified results and the current execution instructions.
+For new pilot model results, start Ollama and run `bash RUN_RESULTS_ON_MAC.command`.
+The workflow saves predictions and creates `outputs/submission/RESULTS.md` after completion.

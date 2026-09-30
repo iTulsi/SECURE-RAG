@@ -114,6 +114,7 @@ def run_baseline(
     seed: int | None,
     limit: int | None,
     reasoned: bool = False,
+    progress: bool = False,
 ) -> tuple[int, int]:
     examples = _load_examples(examples_path)
     cached = _read_existing(output_path)
@@ -181,4 +182,11 @@ def run_baseline(
             prediction["verdict_valid"] = parse_reasoned_verdict(raw_output) is not None
         new_rows.append(prediction)
         write_jsonl(output_path, [*cached, *new_rows])
+        if progress:
+            print(
+                f"Saved {len(cached) + len(new_rows)}/{len(examples)}: "
+                f"{example['id']} -> {prediction['raw_output']!r} "
+                f"({prediction['latency_seconds']:.1f}s)",
+                flush=True,
+            )
     return len(new_rows), len(cached) + len(new_rows)

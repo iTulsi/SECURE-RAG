@@ -9,5 +9,7 @@ data/raw/
 data/corpus/
 data/holdout/
 data/full/
+data/official/
 outputs/*.jsonl
 outputs/*.json
+outputs/*/

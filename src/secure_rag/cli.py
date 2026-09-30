@@ -15,7 +15,7 @@ from .retrieval import (
     prepare_hybrid_examples,
     prepare_multisource_examples,
 )
-from .runner import run_baseline
+from .runner import BaselineError, run_baseline
 from .stages import (
     apply_verification,
     prepare_claim_evidence,
@@ -98,6 +98,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--timeout", type=float, default=120.0)
     run.add_argument("--seed", type=int)
     run.add_argument("--limit", type=int)
+    run.add_argument("--progress", action="store_true")
 
     reasoned = subparsers.add_parser(
         "run-reasoned",
@@ -110,6 +111,19 @@ def build_parser() -> argparse.ArgumentParser:
     reasoned.add_argument("--timeout", type=float, default=120.0)
     reasoned.add_argument("--seed", type=int)
     reasoned.add_argument("--limit", type=int)
+    reasoned.add_argument("--progress", action="store_true")
+
+    review = subparsers.add_parser(
+        "run-review", help="retrieve, resume model inference, score, and write a report"
+    )
+    review.add_argument("--examples", type=_path, default="data/pilot/examples.jsonl")
+    review.add_argument("--corpus", type=_path, default="data/corpus/evidence.jsonl")
+    review.add_argument("--output-dir", type=_path, default="outputs/submission")
+    review.add_argument("--baseline-predictions", type=_path)
+    review.add_argument("--base-url", default="http://localhost:11434/v1")
+    review.add_argument("--model", default="qwen2.5:3b-instruct")
+    review.add_argument("--seed", type=int, default=20260920)
+    review.add_argument("--timeout", type=float, default=180)
 
     dense = subparsers.add_parser(
         "prepare-dense", help="retrieve evidence for the E1 dense-only experiment"
@@ -209,6 +223,94 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "run-review":
+        names = (
+            "examples.jsonl", "retrieval.jsonl", "predictions.jsonl", "metrics.json",
+            "comparison.json", "run_manifest.json", "RESULTS.md",
+        )
+        inputs = {args.examples, args.corpus, args.baseline_predictions}
+        if inputs.intersection((args.output_dir / name).resolve() for name in names):
+            raise ValueError("Choose an output directory that does not overwrite inputs")
+        # Reject a mismatched comparison set before making model requests.
+        baseline_metrics = (
+            evaluate(args.examples, args.baseline_predictions)
+            if args.baseline_predictions else None
+        )
+        prompts = args.output_dir / "examples.jsonl"
+        retrieval = args.output_dir / "retrieval.jsonl"
+        predictions = args.output_dir / "predictions.jsonl"
+        count, elapsed = prepare_multisource_examples(
+            args.examples, args.corpus, prompts, retrieval
+        )
+        print(f"Retrieved {count} passages in {elapsed:.2f}s. Running {args.model}...", flush=True)
+        try:
+            run_baseline(
+                prompts, predictions, args.base_url, args.model, args.timeout,
+                args.seed, None, progress=True,
+            )
+        except BaselineError as error:
+            raise SystemExit(
+                f"Inference incomplete: {error}\n"
+                "Start Ollama with 'ollama serve' and ensure the requested model is pulled. "
+                "Repeat this command to resume saved predictions. No new metrics were written."
+            ) from error
+        metrics = evaluate(args.examples, predictions)
+        write_metrics(args.output_dir / "metrics.json", metrics)
+        if args.baseline_predictions:
+            write_comparison(
+                args.output_dir / "comparison.json",
+                compare_runs(args.examples, args.baseline_predictions, predictions, retrieval),
+            )
+        manifest = {
+            "pipeline": "context-available entity-routed BM25, top_k=5",
+            "model": args.model,
+            "seed": args.seed,
+            "temperature": 0,
+            "max_tokens": 4,
+            "examples_sha256": sha256_file(args.examples),
+            "corpus_sha256": sha256_file(args.corpus),
+            "prompts_sha256": sha256_file(prompts),
+            "predictions_sha256": sha256_file(predictions),
+            "baseline_predictions_sha256": (
+                sha256_file(args.baseline_predictions) if args.baseline_predictions else None
+            ),
+            "retrieved_passages": count,
+            "examples": metrics["overall"]["examples"],
+        }
+        write_metrics(args.output_dir / "run_manifest.json", manifest)
+        lines = [
+            "# SECURE-RAG multi-source measured results", "",
+            f"Model: `{args.model}`. Seed: `{args.seed}`. Examples: {manifest['examples']}.",
+            "Protocol: context-available augmentation; five BM25-ranked passages.", "",
+            "| Run | KCV accuracy | KCV coverage | VOOD accuracy | Overall accuracy |",
+            "|---|---:|---:|---:|---:|",
+        ]
+        runs = [("Multi-source model", metrics)]
+        if baseline_metrics is not None:
+            runs.insert(0, ("Provided baseline predictions", baseline_metrics))
+        for label, result in runs:
+            lines.append(
+                f"| {label} | {result['kcv']['accuracy']:.2%} | "
+                f"{result['kcv']['coverage']:.2%} | {result['vood']['accuracy']:.2%} | "
+                f"{result['overall']['accuracy']:.2%} |"
+            )
+        lines.extend([
+            "", f"Invalid predictions: {metrics['overall']['invalid_predictions']}.",
+            f"Abstention F1: {metrics['abstention']['f1']:.2%}.", "",
+            "These scores use complete prediction files. The provided baseline, if any, "
+            "was scored again; it was not rerun by this command. See run_manifest.json "
+            "for input/output hashes and comparison.json for paired changes.", "",
+            "Pilot data was used during development; these scores do not establish "
+            "generalization. Use the packaged source-disjoint holdout for that check. "
+            "Current external records can disagree with historical benchmark labels. "
+            "VOOD retains empty evidence by protocol; high VOOD accuracy does not "
+            "demonstrate high factual KCV accuracy.", "",
+        ])
+        report = args.output_dir / "RESULTS.md"
+        report.write_text("\n".join(lines), encoding="utf-8")
+        print(f"Complete. KCV: {metrics['kcv']['accuracy']:.2%}; "
+              f"overall: {metrics['overall']['accuracy']:.2%}. Report: {report}")
+        return 0
     if args.command == "apply-cvss-facts":
         count = apply_cvss_facts(args.examples, args.predictions, args.output)
         print(f"Checked CVSS facts for {count} KCV predictions; wrote {args.output}")
@@ -308,6 +410,7 @@ def main(argv: list[str] | None = None) -> int:
             seed=args.seed,
             limit=args.limit,
             reasoned=args.command == "run-reasoned",
+            progress=args.progress,
         )
         print(f"Added {new_count} predictions; cache now contains {total_count}")
         return 0

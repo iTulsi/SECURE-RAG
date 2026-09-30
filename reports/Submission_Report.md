@@ -1,5 +1,10 @@
 # SECURE-RAG: Evidence Retrieval and Abstention on KCV and VOOD
 
+**Archived baseline report.** This document predates the completed
+decision-review experiment. Use [Latest_Results.md](Latest_Results.md)
+for the current 87.50% KCV / 93.75% overall development-pilot result.
+The archived PDF remains a historical checkpoint.
+
 **Student:** Tulsi Tomar  
 **Course:** IMDAI, B.Tech CSE (Cybersecurity), Bennett University  
 **Submission:** Milestones 1 and 2 - problem, methodology, working code, and measured output  

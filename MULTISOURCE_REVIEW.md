@@ -1,5 +1,11 @@
 # SECURE-RAG v0.6 - project review and execution guide
 
+**Historical extension guide.** Its pending-inference status predates the
+completed Mac experiments. The multi-source run achieved 30.56% KCV and
+65.28% overall. Later decision review achieved 87.50% KCV and 93.75% overall
+using original context. See [the current README](README.md) and
+[latest results](reports/Latest_Results.md) for the current status.
+
 Prepared for Tulsi Tomar, B.Tech CSE (Cybersecurity), Bennett University.
 
 ## Problem and implemented contribution

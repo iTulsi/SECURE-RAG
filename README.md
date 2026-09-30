@@ -1,281 +1,131 @@
-# SECURE-RAG: multiple-source cybersecurity evidence
+# SECURE-RAG: evidence-based cybersecurity claim verification
 
-## Decision review for the repaired evidence-first run
+Research implementation by **Tulsi Tomar, B.Tech CSE (Cybersecurity), Bennett University**, based on [SECURE: Benchmarking Large Language Models for Cybersecurity](https://github.com/aiforsec/SECURE) (ACSAC 2024).
 
-Run this in the existing project folder after applying the parser fix:
+The project checks whether a small local model can distinguish a supported cybersecurity claim, a contradicted claim, and a claim that cannot be decided from CVE evidence. It implements retrieval experiments and a focused decision-review pipeline with **Qwen 2.5 3B Instruct through Ollama**. Runtime code uses Python's standard library.
+
+## Latest measured results
+
+The development pilot contains **144 examples: 72 KCV and 72 VOOD**, grouped by 20 CVE sources. These are pilot results, not full-benchmark scores.
+
+| Experiment | KCV accuracy | VOOD accuracy | Overall accuracy |
+|---|---:|---:|---:|
+| Original benchmark prompts | 45.83% | 61.11% | 53.47% |
+| Multi-source retrieval | 30.56% | 100.00% | 65.28% |
+| Evidence-first, repaired parser | 51.39% | 98.61% | 75.00% |
+| **Structured decision review + evidence rules** | **87.50% (63/72)** | **100.00% (72/72)** | **93.75% (135/144)** |
+
+Decision review adds **26 correct KCV answers** over the repaired evidence-first run: **36.11 percentage points**. Nine KCV errors remain. This is a combined pipeline result, including retained model decisions and deterministic evidence checks. VOOD is routed to X when context is absent.
+
+Start with [the latest report](reports/Latest_Results.md), [run evidence and provenance](reports/evidence/README.md), and [the code](src/secure_rag). The latest run completed on the author's Mac. Terminal-reconstructed predictions are identified as such; they are not the original response cache. Full raw responses from the latest run remain on the Mac. Holdout performance is pending.
+
+## KCV and VOOD
+
+- **KCV:** verify a claim using supplied CVE JSON. T = supported, F = contradicted, X = undetermined.
+- **VOOD:** the corresponding claim has no supplied evidence. This protocol preserves missing evidence and expects abstention rather than outside knowledge.
+
+The official benchmark has 466 KCV and 466 VOOD examples. The source-grouped pilot uses a paired subset. A separate holdout contains **146 examples from 20 different CVE sources**, with zero source overlap with the pilot.
+
+## Implemented method
+
+1. Pin and validate the benchmark without changing its labels.
+2. Compact supplied CVE JSON while preserving descriptions, versions, solutions, and metrics.
+3. Run the evidence-first model; save full responses, prompt hashes, settings, latency, and usage.
+4. Route absent context to X and directly check narrowly supported CVSS facts.
+5. Retain other valid T/F decisions and review X/invalid decisions with a focused comparison prompt.
+6. Require structured evidence, comparison, and verdict fields; validate and checkpoint responses.
+7. Score complete merged predictions and save paired changes and input/output hashes.
+
+The completed improvement run used **eight CVSS checks, 72 missing-context decisions, 34 retained binary decisions, and 30 new model reviews**. The review distinguishes contradiction from missing information and checks negation, version boundaries, multi-part claims, HIGH versus CRITICAL severity, and CVSS user interaction. Gold labels and task names do not select decisions or enter inference prompts. Structured formatting does not itself guarantee factual correctness.
+
+## Multi-dataset retrieval
+
+| Source | Implemented role |
+|---|---|
+| [CVE List](https://github.com/CVEProject/cvelistV5) | Descriptions, affected products, versions, metrics, remediation |
+| [NVD](https://nvd.nist.gov/developers/vulnerabilities) | CVE enrichment and weakness/metric information |
+| [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) | Positive evidence of known exploitation |
+| [CWE](https://cwe.mitre.org/data/downloads.html) | Definitions of linked weaknesses |
+| [MITRE ATT&CK](https://github.com/mitre-attack/attack-stix-data) | Techniques when an explicit technique ID is present |
+
+The prepared corpus has **6,812 passages** with source URLs, entity IDs, record hashes, and passage IDs. Retrieval routes by entity before BM25 or dense+BM25 reciprocal rank fusion; optional reranking retains provenance. See [MULTISOURCE_REVIEW.md](MULTISOURCE_REVIEW.md) and [validation](reports/Multisource_Validation.json). Source snapshot hashes are in [data/manifests/corpus.json](data/manifests/corpus.json). Third-party source snapshots are not relabeled or included under the project's MIT license.
+
+External retrieval scored 65.28% overall. The 93.75% result uses original benchmark CVE context and decision review, not external-data training or fine-tuning. KEV and ATT&CK were imported but supplied no selected top-five passages in the recorded full-set retrieval audit.
+
+## Setup and prepare the benchmark
+
+Requirements: **Python 3.11+**, Git, and Ollama with `qwen2.5:3b-instruct`. Ollama must support [JSON-schema output](https://docs.ollama.com/capabilities/structured-outputs).
 
 ```bash
+git clone https://github.com/iTulsi/SECURE-RAG.git
+cd SECURE-RAG
+export PYTHONPATH="$PWD/src"
+git clone https://github.com/aiforsec/SECURE.git ../SECURE
+git -C ../SECURE checkout a2412e8ab4b6051ba7381d4f590cb48d9743c7c8
+python3.11 -m secure_rag validate --data-dir ../SECURE/Dataset
+python3.11 -m secure_rag prepare-pilot --data-dir ../SECURE/Dataset --output-dir data/pilot --sources 20 --seed 20260920 --upstream-commit a2412e8ab4b6051ba7381d4f590cb48d9743c7c8
+python3.11 -m secure_rag prepare-pilot --data-dir ../SECURE/Dataset --output-dir data/holdout --sources 20 --seed 20261001 --exclude-manifest data/pilot/manifest.json --upstream-commit a2412e8ab4b6051ba7381d4f590cb48d9743c7c8
+```
+
+The benchmark is fetched from its original repository. Reference split manifests are in [data/manifests](data/manifests). No pip install is needed with PYTHONPATH set. Model weights and third-party datasets retain their original licenses.
+
+## Reproduce the two-stage pilot pipeline
+
+Start the Ollama application, or run `ollama serve` in another terminal. Pull the model if needed:
+
+```bash
+ollama pull qwen2.5:3b-instruct
+python3.11 -m secure_rag prepare-claim-evidence --examples data/pilot/examples.jsonl --output data/pilot/claim_evidence_examples.jsonl
+python3.11 -m secure_rag run-reasoned --examples data/pilot/claim_evidence_examples.jsonl --output outputs/submission/evidence_first_predictions.jsonl --base-url http://localhost:11434/v1 --model qwen2.5:3b-instruct --seed 20260920 --progress
+python3.11 -m secure_rag repair-reasoned --examples data/pilot/examples.jsonl --predictions outputs/submission/evidence_first_predictions.jsonl --output outputs/submission/evidence_first_repaired_predictions.jsonl
 bash RUN_KCV_IMPROVEMENT.command
 ```
 
-`run-kcv-review` uses the original supplied CVE record. It routes missing context
-to X, checks narrowly supported CVSS facts, retains other existing T/F decisions,
-and reviews X/invalid decisions using JSON-schema output with saved evidence and
-comparison text. It reuses the existing runner and context compaction and adds no
-dependencies. Each successful model response is saved immediately; repeating the
-same command resumes. Schema validation controls format, not factual correctness.
-Results, paired comparisons, prior predictions, and hashes appear under
-`outputs/kcv_review`. The new accuracy is unknown until inference completes.
+Repeating a command resumes matching caches. Different models/prompts/settings require fresh output paths. First pass uses a 256-token budget; review uses temperature 0, seed 20260920, JSON schema, and a 512-token budget. Results appear in `outputs/kcv_review/RESULTS.md`, `metrics.json`, `predictions.jsonl`, `comparison.json`, and `run_manifest.json`, alongside prompts and saved responses. Different model builds/Ollama versions can produce different fresh scores.
 
-After the pilot, evaluate the fixed method on the source-disjoint holdout:
+## Verify published labels without model inference
+
+After preparing the pilot above:
 
 ```bash
-export PYTHONPATH="$PWD/src"
-python3.11 -m secure_rag run-kcv-review \
-  --examples data/holdout/examples.jsonl \
-  --output-dir outputs/kcv_review_holdout
+python3.11 -m secure_rag evaluate --examples data/pilot/examples.jsonl --predictions reports/evidence/decision_review_reconstructed_predictions.jsonl --output outputs/published_labels_metrics.json
 ```
 
-Without `--predictions`, every remaining context-bearing claim gets a fresh model
-review. Use original benchmark examples, not previously rewritten retrieval or
-claim-evidence prompts. Do not tune against holdout labels. A different model
-requires a fresh output directory. See Ollama's official documentation for
-[structured output support](https://docs.ollama.com/capabilities/structured-outputs).
+This scores reconstructed terminal labels and deterministic decisions. It verifies counts without claiming to recreate the original model-response cache. See [provenance](reports/evidence/README.md).
 
-The v0.6 extension adds native CVE JSON 5, NVD API JSON, CISA KEV,
-CWE XML/ZIP, and MITRE ATT&CK STIX ingestion. It routes evidence by exact
-entity before BM25 or the existing dense+BM25 ranker, preserves source
-citations through reranking, and prepares a source-disjoint holdout.
+## Independent holdout evaluation
 
-Start with [MULTISOURCE_REVIEW.md](MULTISOURCE_REVIEW.md) for the review demo,
-dataset roles, commands, measured results, and remaining inference step.
-The existing E0-E6 experimental tools from the tested v0.5 package are retained.
-No new model accuracy is claimed until fresh multi-source inference completes.
-
-This repository implements a pilot pipeline for **SECURE-RAG: Evidence-
-Grounded Cybersecurity Reasoning with Hybrid Retrieval, Reranking, and
-Uncertainty-Aware Abstention**.
-
-The current scope is deliberately narrow:
-
-- validate the official KCV and VOOD TSV files without editing ground truth;
-- build a deterministic pilot grouped by CVE source URL;
-- run the official prompts unchanged against an OpenAI-compatible endpoint;
-- cache every raw response, model identifier, latency, and token-usage record;
-- parse labels strictly and report accuracy, macro-F1, coverage, and abstention
-  precision/recall/F1.
-
-The project includes E0 baseline inference, E1 dense retrieval, E2 hybrid
-retrieval, E3 model reranking, and E4 evidence verification with an abstention
-gate. E2–E4 require local inference to produce measured results. See
-`reports/Submission_Report.md` for the measured pilot and its limitations.
-
-## Why KCV and VOOD are paired
-
-The official repository contains 466 KCV rows and 466 VOOD rows. Corresponding
-rows use the same CVE URL and question. KCV supplies the CVE JSON as evidence;
-VOOD omits that evidence and expects `X` (abstain). Pilot selection therefore
-groups by source URL and always keeps both tasks together.
-
-## Setup
-
-Python 3.11 or later is required. Runtime code uses only the standard library.
+Keep the method fixed and run both stages on new CVE sources:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
-git clone --depth 1 https://github.com/aiforsec/SECURE.git ../SECURE
+python3.11 -m secure_rag prepare-claim-evidence --examples data/holdout/examples.jsonl --output data/holdout/claim_evidence_examples.jsonl
+python3.11 -m secure_rag run-reasoned --examples data/holdout/claim_evidence_examples.jsonl --output outputs/kcv_review_holdout/first_pass_predictions.jsonl --base-url http://localhost:11434/v1 --model qwen2.5:3b-instruct --seed 20260920 --progress
+python3.11 -m secure_rag run-kcv-review --examples data/holdout/examples.jsonl --predictions outputs/kcv_review_holdout/first_pass_predictions.jsonl --output-dir outputs/kcv_review_holdout
 ```
 
-Record the exact upstream revision:
+Keep pilot and holdout metrics separate. Do not tune against holdout labels. Holdout accuracy is currently unmeasured in the published report.
+
+## Code map and validation
+
+| Module | Responsibility |
+|---|---|
+| dataset.py, pilot.py | Benchmark validation, source-grouped splits, hashes |
+| corpus.py, retrieval.py | Source normalization, entity routing, dense/BM25 retrieval |
+| stages.py | Context compaction, review selection/merge, reranking, verification |
+| kcv_facts.py | Narrow evidence-based CVSS checks |
+| runner.py | Endpoint calls, verdict validation, checkpoint/resume |
+| evaluation.py, comparison.py | Metrics and paired changes |
+| cli.py | Experiment commands |
 
 ```bash
-git -C ../SECURE rev-parse HEAD
+python3.11 -m unittest discover -s tests -v
+python3.11 -m secure_rag --help
 ```
 
-## 1. Validate the official data
+**48 tests passed** before publication. They cover success/failure paths, wrong IDs, input preservation, cache isolation, and independence from task names/answer labels. Ruff E4/E7/E9/F passed. GitHub Actions runs tests and lint on Python 3.11 and 3.13. Legacy E0–E4 commands remain in [RUN_ON_MAC.md](RUN_ON_MAC.md); this README and the latest report supersede historical statuses.
 
-```bash
-secure-rag validate --data-dir ../SECURE/Dataset
-```
+## Scope and attribution
 
-Expected official summary at revision
-`a2412e8ab4b6051ba7381d4f590cb48d9743c7c8`:
+The method was developed after inspecting pilot errors. The 87.50% KCV score is a development-pilot result, not a full-benchmark score or proof of outperforming the base paper. Current external CVE snapshots can differ from historical benchmark context. Source-disjoint validation is the next check.
 
-| Task | Rows | Sources | Labels |
-|---|---:|---:|---|
-| KCV | 466 | 124 | F=282, T=183, X=1 |
-| VOOD | 466 | 124 | X=466 |
-
-The single official KCV `X` label is preserved exactly.
-
-## 2. Create the fixed paired pilot
-
-```bash
-secure-rag prepare-pilot \
-  --data-dir ../SECURE/Dataset \
-  --output-dir data/pilot \
-  --sources 20 \
-  --seed 20260920 \
-  --upstream-commit a2412e8ab4b6051ba7381d4f590cb48d9743c7c8
-```
-
-The command writes `data/pilot/examples.jsonl` and `data/pilot/manifest.json`.
-The manifest records the selected URLs, seed, upstream commit, label counts, and
-SHA-256 hashes of the two official files.
-
-## 3. Run a model baseline
-
-The runner accepts an OpenAI-compatible `/chat/completions` endpoint. Use the
-exact model identifier exposed by your endpoint. If authentication is required,
-set the key only in the environment:
-
-```bash
-export SECURE_RAG_API_KEY='your-key'
-secure-rag run-baseline \
-  --examples data/pilot/examples.jsonl \
-  --output outputs/e0_predictions.jsonl \
-  --base-url http://localhost:1234/v1 \
-  --model your-model-id \
-  --seed 20260920
-```
-
-Use `--limit 2` for a smoke test. The output cache is rewritten atomically after
-each successful response. It resumes only if the prompts, model, and settings
-match. The legacy E0/E1 outputs remain evaluable; use a fresh output path for
-new inference.
-
-Do not place API keys in notebooks, command arguments, output files, or Git.
-
-## 4. Evaluate predictions
-
-```bash
-secure-rag evaluate \
-  --examples data/pilot/examples.jsonl \
-  --predictions outputs/e0_predictions.jsonl \
-  --output outputs/e0_metrics.json
-```
-
-Parsing is intentionally strict: after whitespace removal, the complete output
-must be exactly `T`, `F`, or `X`. Explanations such as `False because ...` are
-counted as invalid rather than silently repaired.
-
-For a no-model pipeline sanity check, generate an all-`X` prediction file:
-
-```bash
-secure-rag make-template \
-  --examples data/pilot/examples.jsonl \
-  --output outputs/x_only_predictions.jsonl
-```
-
-This is a sanity baseline, not an LLM result. It should score perfectly on VOOD
-and poorly on supported KCV questions, demonstrating why overall accuracy alone
-is misleading.
-
-## 5. Prepare E1 dense-only prompts
-
-E1 retrieves only from evidence supplied inside each benchmark example. It
-does not fetch withheld CVE records for VOOD, because doing so would invalidate
-the official `X` labels. The embedding endpoint must expose the OpenAI-compatible
-`/embeddings` route.
-
-```bash
-secure-rag prepare-dense \
-  --examples data/pilot/examples.jsonl \
-  --output data/pilot/e1_dense_examples.jsonl \
-  --retrieval-output outputs/e1_retrieval.jsonl \
-  --embedding-cache outputs/e1_embedding_cache.jsonl \
-  --base-url http://localhost:11434/v1 \
-  --model nomic-embed-text \
-  --top-k 5
-```
-
-This writes path-aware evidence chunks, cosine scores, and an embedding cache.
-Then run the same generator and evaluator used for E0:
-
-```bash
-secure-rag run-baseline \
-  --examples data/pilot/e1_dense_examples.jsonl \
-  --output outputs/e1_predictions.jsonl \
-  --base-url http://localhost:11434/v1 \
-  --model qwen2.5:3b-instruct \
-  --seed 20260920
-
-secure-rag evaluate \
-  --examples data/pilot/e1_dense_examples.jsonl \
-  --predictions outputs/e1_predictions.jsonl \
-  --output outputs/e1_metrics.json
-```
-
-Use exactly the same generator model for E0 and E1. The embedding model is a
-separate retrieval component and must be recorded with the results.
-
-## 6. Compare E0 and E1
-
-Generate paired correctness transitions and retrieval-score summaries before
-adding another component:
-
-```bash
-secure-rag compare-runs \
-  --examples data/pilot/examples.jsonl \
-  --baseline outputs/e0_predictions.jsonl \
-  --candidate outputs/e1_predictions.jsonl \
-  --retrieval outputs/e1_retrieval.jsonl \
-  --output outputs/e0_e1_comparison.json
-```
-
-## 7. Prepare E2 BM25 + dense prompts
-
-E2 adds standard-library Okapi BM25 and combines its ranking with the E1 dense
-ranking using reciprocal rank fusion. It reuses the E1 embedding cache and does
-not add a package dependency.
-
-```bash
-secure-rag prepare-hybrid \
-  --examples data/pilot/examples.jsonl \
-  --output data/pilot/e2_hybrid_examples.jsonl \
-  --retrieval-output outputs/e2_retrieval.jsonl \
-  --embedding-cache outputs/e1_embedding_cache.jsonl \
-  --base-url http://localhost:11434/v1 \
-  --model embeddinggemma:latest \
-  --top-k 5 \
-  --rrf-k 60
-```
-
-The retrieval log records dense, BM25, and fused ranks and scores, plus a
-ten-passage candidate pool. The E2 generator receives only the top five. Run
-the generator and evaluator exactly as in E1, changing
-only the example and output filenames. Detailed Mac commands are in
-`RUN_ON_MAC.md`. Treat VOOD results cautiously: an empty evidence section
-explicitly reveals missing context to the generator, so VOOD gains are not
-attributable to semantic ranking alone.
-
-## 8. Run E3 reranking and E4 verification
-
-E3 asks a local model once per KCV example to select the five most relevant
-hybrid passages, then sends those to the generator. E4 separately asks the local model
-whether the evidence supports, contradicts, or cannot establish the claim. A
-T/F answer is retained only when generator and verifier agree; all other
-outputs become X. E4 is an additional model check, not independent evidence
-or calibrated confidence. `RUN_ON_MAC.md` has the complete command sequence.
-Ground-truth labels are never included in the model prompts.
-If E3 returns duplicate or invalid passage numbers, the ranking log marks
-`ranking_valid: false` and fills the missing slots in E2 order. Report how many
-rankings needed this repair before interpreting an E3 gain.
-
-## Tests
-
-```bash
-python -m unittest discover -s tests -v
-python -m compileall -q src tests
-```
-
-## Research integrity
-
-- Keep the official TSV files unchanged.
-- Use the same pilot manifest for every E0-E4 comparison.
-- Never compare pilot scores directly with full-dataset paper scores.
-- Save raw outputs and failed/invalid parses.
-- Report the exact model ID, endpoint implementation, seed support, and hardware.
-- Treat generated cybersecurity advice as requiring human review.
-
-## Source
-
-- Official benchmark: https://github.com/aiforsec/SECURE
-- Paper: https://arxiv.org/abs/2405.20441
-# Current submission
-
-Read [SUBMIT_THIS.md](SUBMIT_THIS.md) for verified results and the current execution instructions.
-For new pilot model results, start Ollama and run `bash RUN_RESULTS_ON_MAC.command`.
-The workflow saves predictions and creates `outputs/submission/RESULTS.md` after completion.
+Original implementation code is MIT licensed. Upstream benchmark/data/model licenses remain with their owners. Base paper: [ACSAC 2024 DOI](https://doi.org/10.1109/ACSAC63791.2024.00019). [Official benchmark](https://github.com/aiforsec/SECURE).

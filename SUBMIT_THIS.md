@@ -1,5 +1,12 @@
 # SECURE-RAG: code and verified submission results
 
+**Current submission entry point:** [README.md](README.md) and
+[reports/Latest_Results.md](reports/Latest_Results.md). The best measured
+development-pilot result is 87.50% KCV and 93.75% overall. The older verified
+baseline and multi-source instructions below remain as experiment history.
+Published terminal reconstructions are described in
+[reports/evidence/README.md](reports/evidence/README.md).
+
 Prepared for Tulsi Tomar, Bennett University, on 1 October 2026.
 
 The submission ZIP includes executable code, tests, the normalized evidence

@@ -1,5 +1,10 @@
 # Dataset location
 
+The latest pinned setup and split-generation commands are in the root
+[README](../README.md). Reference pilot/holdout manifests and corpus source
+hashes are committed under `data/manifests`. Generated benchmark examples
+and external snapshots remain local; their sources retain their own licenses.
+
 The project intentionally does not redistribute the upstream benchmark files.
 Clone the official repository and pass its `Dataset` directory to the CLI:
 

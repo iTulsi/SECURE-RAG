@@ -1,0 +1,54 @@
+{
+  "abstention": {
+    "f1": 0.9863013698630138,
+    "precision": 0.972972972972973,
+    "recall": 1.0,
+    "unsupported_answer_rate": 0.0
+  },
+  "kcv": {
+    "accuracy": 0.875,
+    "coverage": 0.9722222222222222,
+    "examples": 72,
+    "gold_labels": {
+      "F": 46,
+      "T": 26
+    },
+    "invalid_predictions": 0,
+    "macro_f1": 0.8765217391304347,
+    "predicted_labels": {
+      "F": 46,
+      "T": 24,
+      "X": 2
+    }
+  },
+  "overall": {
+    "accuracy": 0.9375,
+    "coverage": 0.4861111111111111,
+    "examples": 144,
+    "gold_labels": {
+      "F": 46,
+      "T": 26,
+      "X": 72
+    },
+    "invalid_predictions": 0,
+    "macro_f1": 0.9131149493746277,
+    "predicted_labels": {
+      "F": 46,
+      "T": 24,
+      "X": 74
+    }
+  },
+  "vood": {
+    "accuracy": 1.0,
+    "coverage": 0.0,
+    "examples": 72,
+    "gold_labels": {
+      "X": 72
+    },
+    "invalid_predictions": 0,
+    "macro_f1": 1.0,
+    "predicted_labels": {
+      "X": 72
+    }
+  }
+}

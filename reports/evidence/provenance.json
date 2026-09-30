@@ -1,0 +1,26 @@
+{
+  "evidence_kind": "historical original caches plus explicitly labeled terminal reconstructions",
+  "holdout_metrics_available": false,
+  "latest_reported_kcv_correct": 63,
+  "latest_reported_overall_correct": 135,
+  "new_model_inference_performed_in_cloud": false,
+  "original_latest_response_cache_uploaded": false,
+  "pilot_examples": 144,
+  "routing_counts": {
+    "cvss_facts": 8,
+    "missing_context": 72,
+    "model_review": 30,
+    "retained_binary": 34
+  },
+  "sha256": {
+    "data/manifests/corpus.json": "a5c6791d6511a230dabafdeb7a45722b5f7068fb0b5f8826c373d666829ce4b4",
+    "data/manifests/holdout.json": "389274c27204debf4c702cc5b6845158e46c319d795923df8a3a3874e52ecdd5",
+    "data/manifests/pilot.json": "244d1293d8f303b09422df82abd3768224b156024935b165222176762fdb73f9",
+    "reports/evidence/decision_review_reconstructed_metrics.json": "d22d5f28f225af461a8ecba9e9d5523e54404a50adaf91bd5c1d9267fafbecf9",
+    "reports/evidence/decision_review_reconstructed_predictions.jsonl": "1d89477107898b5d1ebe67d7640910ce6c486d04968c17b0eb000650527f9b48",
+    "reports/evidence/decision_review_terminal_labels.txt": "0118e556102349a0a9977dedb69e628eba116678fe66d457056ef686cf13e055",
+    "reports/evidence/e0_original_predictions.jsonl": "f0fdf69525d5b3da6920eaea7ceabf0826573deae194d75d7b0d044422aadcf7",
+    "reports/evidence/e1_original_predictions.jsonl": "cdadd32f16569b845d28dc8165a646cca0938af6f41553a7ea176937fd1385b5",
+    "reports/evidence/evidence_first_reconstructed_predictions.jsonl": "ed526e5f36c80d44d47cf38669c25bf63fe6658c6114bff20ec466476470d106"
+  }
+}

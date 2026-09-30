@@ -1,0 +1,144 @@
+{"id": "kcv-0008", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "T"}
+{"id": "kcv-0009", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0010", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0011", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0055", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0056", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0057", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0058", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0102", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0103", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0104", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0105", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0106", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0107", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0108", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0131", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0132", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0133", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0134", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0183", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0184", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0185", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0186", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "X"}
+{"id": "kcv-0195", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0196", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0197", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0198", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0222", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0223", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0224", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "T"}
+{"id": "kcv-0225", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0226", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0227", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0228", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "T"}
+{"id": "kcv-0229", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0230", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0231", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0232", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0233", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0234", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0235", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0236", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0250", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0251", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0252", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0253", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0254", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0255", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0256", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "T"}
+{"id": "kcv-0257", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0262", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0263", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0299", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0300", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0301", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0306", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0307", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "X"}
+{"id": "kcv-0393", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0394", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0395", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0396", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0397", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "T"}
+{"id": "kcv-0398", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0399", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0400", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0423", "provenance": "model review label supplied in completed-run terminal output", "raw_output": "F"}
+{"id": "kcv-0424", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0425", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0433", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0434", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "T"}
+{"id": "kcv-0435", "provenance": "cvss_facts: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "kcv-0436", "provenance": "retained_binary: reconstructed prior label or deterministic decision", "raw_output": "F"}
+{"id": "vood-0008", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0009", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0010", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0011", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0055", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0056", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0057", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0058", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0102", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0103", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0104", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0105", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0106", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0107", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0108", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0131", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0132", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0133", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0134", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0183", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0184", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0185", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0186", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0195", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0196", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0197", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0198", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0222", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0223", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0224", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0225", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0226", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0227", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0228", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0229", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0230", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0231", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0232", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0233", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0234", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0235", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0236", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0250", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0251", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0252", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0253", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0254", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0255", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0256", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0257", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0262", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0263", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0299", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0300", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0301", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0306", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0307", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0393", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0394", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0395", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0396", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0397", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0398", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0399", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0400", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0423", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0424", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0425", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0433", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0434", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0435", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}
+{"id": "vood-0436", "provenance": "missing_context: reconstructed prior label or deterministic decision", "raw_output": "X"}

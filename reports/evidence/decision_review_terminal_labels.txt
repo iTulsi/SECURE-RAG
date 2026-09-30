@@ -1,0 +1,37 @@
+Completed-run evidence supplied by the author on 2026-10-01.
+Only displayed labels are recorded here; full review responses were not uploaded.
+cvss_facts=8; missing_context=72; retained_binary=34; model_review=30.
+
+Saved 1/30: kcv-0008 -> 'T'
+Saved 2/30: kcv-0104 -> 'F'
+Saved 3/30: kcv-0105 -> 'F'
+Saved 4/30: kcv-0107 -> 'F'
+Saved 5/30: kcv-0108 -> 'F'
+Saved 6/30: kcv-0131 -> 'F'
+Saved 7/30: kcv-0183 -> 'F'
+Saved 8/30: kcv-0185 -> 'F'
+Saved 9/30: kcv-0186 -> 'X'
+Saved 10/30: kcv-0198 -> 'F'
+Saved 11/30: kcv-0224 -> 'T'
+Saved 12/30: kcv-0226 -> 'F'
+Saved 13/30: kcv-0227 -> 'F'
+Saved 14/30: kcv-0228 -> 'T'
+Saved 15/30: kcv-0236 -> 'F'
+Saved 16/30: kcv-0250 -> 'F'
+Saved 17/30: kcv-0251 -> 'F'
+Saved 18/30: kcv-0253 -> 'F'
+Saved 19/30: kcv-0255 -> 'F'
+Saved 20/30: kcv-0256 -> 'T'
+Saved 21/30: kcv-0257 -> 'F'
+Saved 22/30: kcv-0262 -> 'F'
+Saved 23/30: kcv-0263 -> 'F'
+Saved 24/30: kcv-0299 -> 'F'
+Saved 25/30: kcv-0300 -> 'F'
+Saved 26/30: kcv-0301 -> 'F'
+Saved 27/30: kcv-0307 -> 'X'
+Saved 28/30: kcv-0393 -> 'F'
+Saved 29/30: kcv-0397 -> 'T'
+Saved 30/30: kcv-0423 -> 'F'
+
+Complete. KCV: 87.50%; overall: 93.75%.
+This transcription omits machine-local paths and displayed timing values.

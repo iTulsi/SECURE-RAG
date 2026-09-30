@@ -1,5 +1,12 @@
 # Milestone 2 lab demonstration (5-7 minutes)
 
+For the latest demonstration, first follow the root [README](README.md) to
+prepare the pinned pilot. Show [latest results](reports/Latest_Results.md),
+then recompute `reports/evidence/decision_review_reconstructed_predictions.jsonl`
+with the evaluator. Explain the reconstruction's provenance. The older E0/E1
+commands below remain useful for showing the baseline but are superseded by
+the latest result report.
+
 Run from this project directory. Python 3.11+ is sufficient to demonstrate
 the saved experiments; the runtime has no package dependencies.
 

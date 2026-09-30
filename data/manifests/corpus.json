@@ -1,0 +1,783 @@
+{
+  "chunks": 6812,
+  "corpus_sha256": "6fd08ac5210f937bb7c5ef723a6e1884da0650fef8864d7981c35dbd60ee7f2f",
+  "protocol": "Evidence only; no benchmark questions or answer labels. Current snapshots may differ from SECURE's historical context.",
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "file": "CVE-2024-0007.json",
+      "records": 1,
+      "sha256": "6088a6cfd21be487b9af0d79f9f96061c4d53fddb2f6a461d79b9e13145cae89",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0008.json",
+      "records": 1,
+      "sha256": "e00d8b1d169c83c4a726be38316217b923dafc561b7617c864e3600071a1f168",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0009.json",
+      "records": 1,
+      "sha256": "7754fd72d805fa9529ca37078f62893db999e121af4d1013599a5f5a49966106",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0010.json",
+      "records": 1,
+      "sha256": "07a0380185b7c55c0c8b3798f515cf09cbb21acd0e0aad4d66bcc29bacf55a06",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0011.json",
+      "records": 1,
+      "sha256": "09582fd23f78133b46fe61178f08287c4246dc9e30cf4c261b155459d597c1df",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0014.json",
+      "records": 1,
+      "sha256": "16cbc6290d4752e8f7338665ad9f2d65778f98c01defb63cb7b21f54b9391f18",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0015.json",
+      "records": 1,
+      "sha256": "6ec26ee3b78f1bc4d45a98d78d4699c3290e7ef1f3970aaa62a08be04e1230df",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0016.json",
+      "records": 1,
+      "sha256": "ce73915f95da5aad018c2f99d3db26f28e28d5cb06f4650fe003c743c7aff956",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0017.json",
+      "records": 1,
+      "sha256": "a55449919bf3a6290f38ed5ce7cc55390684282d877d52bc421802412e472574",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0018.json",
+      "records": 1,
+      "sha256": "2a79635a44681df4e2c1e728dd24dfff80d04e39b9b6e43214435c66ca82420a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0019.json",
+      "records": 1,
+      "sha256": "84378b4b2c0896af7071d98e8fc647f26439123eae18f46de6919956435649ba",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-0020.json",
+      "records": 1,
+      "sha256": "3b2483ee844d948ba7e7c5093e82e36eb93b479126a8c1fc23783752f0cea159",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1000.json",
+      "records": 1,
+      "sha256": "0972fd94447b1fec5b42796679d9350c239318923766e28143024ca7f459f4b9",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1001.json",
+      "records": 1,
+      "sha256": "2a9e1bac69c063b43ae8db186a00dab04a4574431b21a8555394d0297785c7e4",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1002.json",
+      "records": 1,
+      "sha256": "e54d944711af8c1e02783612b17a4ad41e78620dce69e64149af30668ce0118d",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1003.json",
+      "records": 1,
+      "sha256": "4aba6164051067efbc4929abce75b855fade9fdf64d952d9a67e54b5a5690a61",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1004.json",
+      "records": 1,
+      "sha256": "6f1dc86ee3726b1288eb8513d7f78fbce2460a85c67eee56e754f40b16be12b1",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1005.json",
+      "records": 1,
+      "sha256": "cb64e7cb436d0b97864d22260b36ded73b2c9615d4e5a5f90cdcdc6408d2be8d",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1006.json",
+      "records": 1,
+      "sha256": "f0eebe6e7766f3885a3961d620085ea531df50893622a1601d396b9e22392e21",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1007.json",
+      "records": 1,
+      "sha256": "f05fc6803a7eb2bdddaef724721f7ab7815dab1b1680751b81d7de1174ba01ba",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1008.json",
+      "records": 1,
+      "sha256": "1cd1ee2b0ccc7e79607c090e139e12598a00f931918faa243bf9d0e95585810b",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1009.json",
+      "records": 1,
+      "sha256": "1bd14db58f9bbf97ad11199014af27c5f18a531725cc483bceb56f8fe68ecb54",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1010.json",
+      "records": 1,
+      "sha256": "61339c2e4ab10f076a3c74effa230b76a8b195de975443f03beaccfcb1409caa",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1011.json",
+      "records": 1,
+      "sha256": "47b8db89c7c03d2057a74c58c886f5d57e29b9eda6f42f1142136ac21dd9dd1d",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1012.json",
+      "records": 1,
+      "sha256": "7fd3cca32aa42c75d5ed91f366a3c6d98248be2c7584607ee2e490c96eb902af",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1013.json",
+      "records": 1,
+      "sha256": "6ccd6a622be85fe5edb72118d03e44bcfcc8676dab9c14a5189adbaced0cd45a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1014.json",
+      "records": 1,
+      "sha256": "b312f6f79e0a044b435d1af60a905a83a6f1cddb250510a50415bcc7e512aa7e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1015.json",
+      "records": 1,
+      "sha256": "bd8fd9b8f526853947955fd09f1cf13886120772eb4f77b6f64ab16874867f81",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1016.json",
+      "records": 1,
+      "sha256": "6afd1f0f706d4c36db04a7ddf6aa133bd2d004df517f402a9cc50cb5178f6f52",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1018.json",
+      "records": 1,
+      "sha256": "9490ec552c865b7fba0abc55bd8b45fa9b8feae6668cd607a652e7985f2942e0",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1019.json",
+      "records": 1,
+      "sha256": "c178ec39ff2fa8ed1d885214e6556def0702973af6ca8ea5dac2eeb0d38adead",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1020.json",
+      "records": 1,
+      "sha256": "0e1a886230a28ad1d8ec9952880d2a5b1f4df442b44995d8cfc9efee1fc0378e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1021.json",
+      "records": 1,
+      "sha256": "e8d501cead5378c44e1702cb3cdfb8ed57553555b9752fb1fd6864118ab26370",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1023.json",
+      "records": 1,
+      "sha256": "182521a5a7219b2bc9a2f46323620021314a6b160de3d9d77d0ab9d72dd67179",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1024.json",
+      "records": 1,
+      "sha256": "61669f1e342da7e9259b0756a0a267d9406fb068daf9012e3f2694c112f1b492",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1026.json",
+      "records": 1,
+      "sha256": "f7bf32fdd9c76c0b4464e39dc05b32111793352e20db2888a9b6db6b589ee5cd",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1027.json",
+      "records": 1,
+      "sha256": "83d454e9b3d0745a1f6bc0b7e4fbd95a93564ec19394c57068f8e84a585da72f",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1028.json",
+      "records": 1,
+      "sha256": "247a1063f299fa93118edf1697fa129a11c233ed5fd22059123dfb0124d1af0a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1029.json",
+      "records": 1,
+      "sha256": "8a2e0c352b0ad0bda3e137e93f7380149540d3cb4a265ef2ed2ad6b6ee957a6c",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1030.json",
+      "records": 1,
+      "sha256": "b1a44b4e67b75bc400d23fa801212a028103a7084917ea552de7fe09f0016536",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1031.json",
+      "records": 1,
+      "sha256": "0d9f0ae4573c69046c0d06dd97b15c5644ac7464a4ada6cf07162df2f8d1cda6",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1032.json",
+      "records": 1,
+      "sha256": "5457b2312f6077ec9baba91e118a5eb3da87be5481fe91b9d07d1ff8d1cd1541",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1033.json",
+      "records": 1,
+      "sha256": "920272d07c3618f2b3a696f0dfd3dde05136d4ca4e0fbfbb85a422bbde88098e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1034.json",
+      "records": 1,
+      "sha256": "acdb0b4b2502c69cf64af98cebf911c8f9e2180e583fe4ac9fd0099d9cd77371",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1035.json",
+      "records": 1,
+      "sha256": "593e43fd463f98bd3514821103912e60cb54bbcbef01b8b8f19a3efeba652594",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1036.json",
+      "records": 1,
+      "sha256": "7343213d7b9f22e2ef6fb66b951cd10a9967ccb5714f84aa25faac8e212ea5cb",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1037.json",
+      "records": 1,
+      "sha256": "b2b47b27c3d832df989b202fb97102710b75bd857882dc814205c693a25d58d4",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1038.json",
+      "records": 1,
+      "sha256": "f189dc18d25c7bd204bc9b079a1cbd4aa506ce3386763be733019cc82df21dcb",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-1039.json",
+      "records": 1,
+      "sha256": "ced44b68611c8caa490e7b9ea42a7c19b7b17caec5ce09aa1a32f2d0b222e4dc",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2000.json",
+      "records": 1,
+      "sha256": "aa33483f5b6520a19fac3e1213d213940d121962c30ab6006ee1ef4227eafbc5",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2001.json",
+      "records": 1,
+      "sha256": "42212fd8f21985635d57d1e22254cbbda5175c727015d84c8f5f2ed40b325cea",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2002.json",
+      "records": 1,
+      "sha256": "f6c135047f03672f9a4cc5993e1f73786cd1a0258e75785b6ae5de3ac54e87e2",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2004.json",
+      "records": 1,
+      "sha256": "99dc72fc4f88d114f8ac662d718900cde51105fb6ea1abbe532ba134c181eb2b",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2005.json",
+      "records": 1,
+      "sha256": "9b54f0fff798e6154bdc14353a88d979c70287484fa8428830c914675d20f4c9",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2006.json",
+      "records": 1,
+      "sha256": "772e9e0ec7c35ae496e52fb365d2b4be8aca298adb189608bf56a46e1551db39",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2007.json",
+      "records": 1,
+      "sha256": "81f42d120cb318721b878ea05a614c99d8ab776732e23bafb21c9b6f1760bb6a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2008.json",
+      "records": 1,
+      "sha256": "e3029bfad83cfcb8b22076eb7ded8eea24e4ad48db0bec16a1134dfcdd14822e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2009.json",
+      "records": 1,
+      "sha256": "67ad3d9e7e2a5dd98ac2c11c703dd125fb4906638da975429f8111e4130ddeb0",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-2014.json",
+      "records": 1,
+      "sha256": "ceed1e54ce468a5347d6dde75aa208c1fea22396d74db8d9e8b6fe08d895cd6f",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3000.json",
+      "records": 1,
+      "sha256": "ab4f2b76bef82dbddf44754a6470def1f9053addb8cbc205bde87ca2900c6c86",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3001.json",
+      "records": 1,
+      "sha256": "e59fdcaad4fa0f1ca98e9d3514c60800c95bf8cc2566297c26d0efd88c1afc4b",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3002.json",
+      "records": 1,
+      "sha256": "1f1e14ab943bece9efbcdcb2f4dfbf3d0d718ce6769cedc89dfed1c0af626fd3",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3003.json",
+      "records": 1,
+      "sha256": "14c4713d6503cca6ded65706827743dfde5afa202ed738dcb9f0533dd5875c06",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3004.json",
+      "records": 1,
+      "sha256": "eed498a8941a83c897eaf7e65d877291a671b1e06daa205cfd2bdfbc8a686165",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3005.json",
+      "records": 1,
+      "sha256": "3d26f174bb57dd4f3d00df33da0341b67ef9af3a7323354c8818f239452fd18e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3006.json",
+      "records": 1,
+      "sha256": "80942b219646e3880fbb5278274d2bfba45e80804b5f0e52a259d760243612e5",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3007.json",
+      "records": 1,
+      "sha256": "0634850cc1832a7e652f8fd333dc4fbab8195b1f1a26b393f32ec26ad63c7b96",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3008.json",
+      "records": 1,
+      "sha256": "d55b432e84ce0bfec08e6c3c283da89fa911715994205618ccd1cb18fafbd6ca",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3009.json",
+      "records": 1,
+      "sha256": "daf0960c8fb2f93080f8d7fc20a3a5c16971d4dabed2e6b9aadc0a873a143375",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3010.json",
+      "records": 1,
+      "sha256": "31d8e336fa4ea667aeec2378b58f2df71f2742c87252a74c7b9a6ea16a6c4026",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3011.json",
+      "records": 1,
+      "sha256": "f4fa2ccc66ae487d8ee9da8bbc79a930e34d9a59d3db969e05745a534b5b8a24",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3012.json",
+      "records": 1,
+      "sha256": "933ed2b8a2ff8bd5c208fc089262ad33ac41f9b7535fd73af496cd4d840bf934",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3013.json",
+      "records": 1,
+      "sha256": "776ab72059d2ad84f8f85a4705f2adb57c029c876c9f818a0d7844ff6e875897",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-3014.json",
+      "records": 1,
+      "sha256": "096b40874cc04292ea0d7d6829ca5a950eb7d4f6e173e8c4aa38716549ad484c",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36000.json",
+      "records": 1,
+      "sha256": "6a86fcbc40ff2b922da8bd154da4cf67a6818e387d77f0bca5b17ef40a0316a5",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36001.json",
+      "records": 1,
+      "sha256": "eeb86fd300e7119d02a1c0cb64ede7a3ea2edc3590ddfd9703411322c2bc3a15",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36002.json",
+      "records": 1,
+      "sha256": "e79ac6c173714629caa945d2262d69cbfe16e0d6a5c4c14e2fe43f435e8b928c",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36003.json",
+      "records": 1,
+      "sha256": "ecffb2dac73dd7ac7e677b8d1a9aeb9a24d7d1f68f18e37a0f745fc4d3987163",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36004.json",
+      "records": 1,
+      "sha256": "4d238b389f92494a5f161cb3ae8a9b677344c9ae73be768b4f06b1f48928270a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36005.json",
+      "records": 1,
+      "sha256": "2b604a18cdaf9e11906605749479c22c216432a808f88824fcfc7a4188f55464",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36007.json",
+      "records": 1,
+      "sha256": "6ecc831b39320ffc221b7d290815ce3851b1a94fa79bc738b01ae4d458326adc",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36008.json",
+      "records": 1,
+      "sha256": "595d4f6752ddebccf7f387ba58deb11b58ce175113ef5d3b034d96c7416812a8",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36009.json",
+      "records": 1,
+      "sha256": "bc4c94298856bf27d559f68670501abb9ecc52373fc425c5f2eb8e53726880c1",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36010.json",
+      "records": 1,
+      "sha256": "4f663918a2b8e1720fb3741522e5e63371dd95e66e8dcdcc3e2cf2110efbfe48",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36039.json",
+      "records": 1,
+      "sha256": "32ba090e48fd707d525f7b4a58a49c3ca5d6d405a79e5e2e4694c061a8599622",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36043.json",
+      "records": 1,
+      "sha256": "246c4b29b3fa0d063f1ccf409e1caf4e15714c2c31ab1218176d3794716c25dc",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36048.json",
+      "records": 1,
+      "sha256": "2c00753a8f2ab060d5825cf6c7cef30d9f87b524029efa6c68252e2940a9169b",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36050.json",
+      "records": 1,
+      "sha256": "448965ea8cc028f0d43b80ba517a94f0a2738d1500e42de7a013a4f3d4cc3b66",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36052.json",
+      "records": 1,
+      "sha256": "db13ecd15c0a1e369da8ce199d281f51d52b182602c7205d7c05db584ffe1961",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36053.json",
+      "records": 1,
+      "sha256": "1103f1b1fecf9fdcce142b3fbee31633ecdfb4c7707b5455f7e5ff467dd104d4",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36070.json",
+      "records": 1,
+      "sha256": "99bce6f55d4b41db89ac2b5f7b589b38eabcbe1d69302d5b615ba92628760575",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36076.json",
+      "records": 1,
+      "sha256": "4e43e2c6593f67c7a6b663089078339aeefef138dd99ee15cbbdb4c88de17402",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36077.json",
+      "records": 1,
+      "sha256": "bbb2cc73489975090d22c4f962a75b62a2fc3e263527f3701a65e8d96cbe4751",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36078.json",
+      "records": 1,
+      "sha256": "4d521fa9e70cd49c3efdb68f21881c22b294b8b01ec75e31dc0c9c6d3fe8982e",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36080.json",
+      "records": 1,
+      "sha256": "b3671acd157efc768b67dec45b07fbe83f274a1081615fd7c752b25bd12a029a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-36081.json",
+      "records": 1,
+      "sha256": "6a41e52912fea4c6e4370fcbfa253812b645d4242d3ce52b1683c3e8b86c29dc",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4000.json",
+      "records": 1,
+      "sha256": "932171c6f2cc1094da0787f57c35170c2002d006d411637f2275a707d94e3a50",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4003.json",
+      "records": 1,
+      "sha256": "2593f176be29cdea9621e6f1f9b2fbc13c41f489693f1d6c8e73339975bf0ead",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4006.json",
+      "records": 1,
+      "sha256": "f5aed96b17d97c350244252f047af3155445b93dbc808338212077d09987dcb0",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4010.json",
+      "records": 1,
+      "sha256": "5edcfaa4f517dc2cf3038661097ca10c640f0b59d8d66093085a13aa88570639",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4014.json",
+      "records": 1,
+      "sha256": "c205b15f0888c006be270afc65e0b9d081fecb2e11825a6e39d0ead7ced6e517",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4017.json",
+      "records": 1,
+      "sha256": "51863624b65c56a81d1509f4f681939df9a1e89c9ea3e1559191af6af4fa5525",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4018.json",
+      "records": 1,
+      "sha256": "794ed41cdeeb8e6a90f506f8f3a905db993b24e67d7958f48a8c9009cf909f78",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4019.json",
+      "records": 1,
+      "sha256": "48e5b37250bba7ae37f34d1f9ddd755841e5772d02ed2d8745580ff77f6bd583",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4020.json",
+      "records": 1,
+      "sha256": "54bbd5d26214ffb0c2e0798b41a1bc1052436ac3b894e68b784bc03f8d305327",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4021.json",
+      "records": 1,
+      "sha256": "629e8364428c1ff80f17bcdcaade2d470ce2002310b5e2efd6937a71be752fa2",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4022.json",
+      "records": 1,
+      "sha256": "dc5bccc2b51a94b87a38f32b402d852461149accf14c11033143124a83e93fb1",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4024.json",
+      "records": 1,
+      "sha256": "3bf83ea69c824d586d9a4c3aae4f591658c8162feda75fd0ae5a1d841f0638be",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4026.json",
+      "records": 1,
+      "sha256": "bf4cf6fca2d22f5dbdb5fec34e6501a6a13383e0e4a4ea58a69ae8527fe8048b",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4029.json",
+      "records": 1,
+      "sha256": "2ec10733577b2c003051e0e80d751a1164c3d8136757d8b68de4e9d67f11f56c",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-4030.json",
+      "records": 1,
+      "sha256": "84e99a237275eb0550edfa5c1a0451a3021cad4280806d8a360127e89d34c99f",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5022.json",
+      "records": 1,
+      "sha256": "b825b484f72efdaaa1a4a6d459ff1471f0b6e4d67412a73ab6ee23329b121a40",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5023.json",
+      "records": 1,
+      "sha256": "1b1c038bb233b7cfb738427e7cb29d3d47c17c7a2971de414e4e8df9d869add0",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5025.json",
+      "records": 1,
+      "sha256": "eb6a996d508cfa4c4c25bf5078e0ac2f8511eb64015fe24d893a09e5898b8e41",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5031.json",
+      "records": 1,
+      "sha256": "454b3ae57a321c10cc40d8de7ddcd92996ac62a5c723de924841dcadfabf5b42",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5040.json",
+      "records": 1,
+      "sha256": "c863ccf1352bfb0afe02d7b32295ddeef31a39e6c69026870152e890dc11698a",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5042.json",
+      "records": 1,
+      "sha256": "641bc14ee0902336a0017574b59df4996e0394d0a26ab5516d1d3a299f5bd34c",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5043.json",
+      "records": 1,
+      "sha256": "8c504c70304835df5a17c8c3bf1d700e8d9dcc0df58648e830c0c7029a3580ba",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5045.json",
+      "records": 1,
+      "sha256": "048b6850bfed421d83bd873246d214d5b60ca876b0291b2325295a69ed5443a5",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5046.json",
+      "records": 1,
+      "sha256": "b38ccc40d2db91656e24d7cdc09924b9c7714136bc58b5cabd334025ab8f0a47",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5047.json",
+      "records": 1,
+      "sha256": "00a293e4960023c1ebc6ea9af49531a51ed6d38a7a18ad6030f6f8e1c63350e8",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5048.json",
+      "records": 1,
+      "sha256": "27cc3226ca0990c2b398393422e2eb084a2507ecc0c7b93b62312801c5b33d73",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5049.json",
+      "records": 1,
+      "sha256": "64ee3208c738c65feb1604bc7334b13e4ed5851b300877b3dc1ae54e00b0daf1",
+      "source": "cve"
+    },
+    {
+      "file": "CVE-2024-5050.json",
+      "records": 1,
+      "sha256": "f2b7c613e4b232f48e187d8735fd999b861fe295a62e82f9d16e60aa290ae44b",
+      "source": "cve"
+    },
+    {
+      "file": "nvd.json",
+      "records": 124,
+      "sha256": "a13963630dc3fe721e43dfc469eafccfe80d4b783dcc74d9fd205eca73e9428b",
+      "source": "nvd"
+    },
+    {
+      "file": "kev.json",
+      "records": 1729,
+      "sha256": "62c798bffe1334f5ad43853a7ee9d6eb6969e5b98b6755a6e1c901a1b1ae8f5c",
+      "source": "kev"
+    },
+    {
+      "file": "cwe.xml.zip",
+      "records": 969,
+      "sha256": "3976f599e5e5200219a3108bb896d06e2a88fbb293369e1883cb423a5e9d7d50",
+      "source": "cwe"
+    },
+    {
+      "file": "attack.json",
+      "records": 697,
+      "sha256": "dc1639caa5501d720e280cf1cbd8fbe009884a0c9b3e6e9ed9d0c25166c3d8f4",
+      "source": "attack"
+    }
+  ],
+  "source_chunks": {
+    "attack": 1726,
+    "cve": 994,
+    "cwe": 1126,
+    "kev": 1891,
+    "nvd": 1075
+  }
+}

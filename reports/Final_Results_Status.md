@@ -1,5 +1,11 @@
 # SECURE-RAG experiment status and final result sheet
 
+**Historical checkpoint.** The current best measured development-pilot
+result is 87.50% KCV and 93.75% overall. The multi-source run achieved
+30.56% KCV and 65.28% overall. See [Latest_Results.md](Latest_Results.md)
+and [published evidence](evidence/README.md). Historical pending cells below
+refer to the older archive, not the current implementation status.
+
 The packaged pilot has 72 KCV and 72 VOOD examples from 20 source URLs.
 E0 and E1 below are **measured from saved predictions**. E2–E4 contain
 complete executable code but **no measured scores in this package**: the

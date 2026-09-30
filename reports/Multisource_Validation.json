@@ -1,0 +1,79 @@
+{
+  "corpus_chunks": 6812,
+  "corpus_sha256": "6fd08ac5210f937bb7c5ef723a6e1884da0650fef8864d7981c35dbd60ee7f2f",
+  "inference_status": "New multi-source model inference not run; requires local Ollama. Mock tests are not accuracy evidence.",
+  "kev_catalog_version": "2026.09.29",
+  "lint": "Ruff E4,E7,E9,F; passed",
+  "protocol": "context-available augmentation; no retrieval when supplied context is absent",
+  "retrieval_runs": {
+    "full": {
+      "audit_sha256": "c1c89651c973d2418c927c271f10e1f463fbb43c4602f00507b3510aee882c88",
+      "context_missing": 466,
+      "examples": 932,
+      "missing_context_evidence_violations": 0,
+      "retrieved_passages": 2327,
+      "retrieved_source_counts": {
+        "cve": 731,
+        "cwe": 304,
+        "nvd": 708,
+        "secure-context": 584
+      },
+      "tasks": {
+        "KCV": 466,
+        "VOOD": 466
+      }
+    },
+    "holdout": {
+      "audit_sha256": "ded262e0f4efa9fd8e192859dc4d9ddf8271c68bf02a3c65207ecde92546b18b",
+      "context_missing": 73,
+      "examples": 146,
+      "missing_context_evidence_violations": 0,
+      "retrieved_passages": 365,
+      "retrieved_source_counts": {
+        "cve": 124,
+        "cwe": 50,
+        "nvd": 111,
+        "secure-context": 80
+      },
+      "tasks": {
+        "KCV": 73,
+        "VOOD": 73
+      }
+    },
+    "pilot": {
+      "audit_sha256": "a6274eefb1427f2f4cef9bc0d28b65384f1c60c999ed2f8fd098ac32b2b1a52e",
+      "context_missing": 72,
+      "examples": 144,
+      "missing_context_evidence_violations": 0,
+      "retrieved_passages": 358,
+      "retrieved_source_counts": {
+        "cve": 109,
+        "cwe": 47,
+        "nvd": 111,
+        "secure-context": 91
+      },
+      "tasks": {
+        "KCV": 72,
+        "VOOD": 72
+      }
+    }
+  },
+  "source_chunks": {
+    "attack": 1726,
+    "cve": 994,
+    "cwe": 1126,
+    "kev": 1891,
+    "nvd": 1075
+  },
+  "source_overlap_pilot_holdout": 0,
+  "source_records": {
+    "attack": 697,
+    "cve": 124,
+    "cwe": 969,
+    "kev": 1729,
+    "nvd": 124
+  },
+  "tests_passed": 36,
+  "upstream_commit": "a2412e8ab4b6051ba7381d4f590cb48d9743c7c8",
+  "version": "0.6.0"
+}

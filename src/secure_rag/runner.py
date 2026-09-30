@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
@@ -13,6 +14,14 @@ from .pilot import write_jsonl
 
 class BaselineError(RuntimeError):
     """Raised when the model endpoint returns an unusable response."""
+
+
+VERDICT_PATTERN = re.compile(r"(?:^|\n)VERDICT:\s*([TFX])\s*$", re.IGNORECASE)
+
+
+def parse_reasoned_verdict(response: str) -> str | None:
+    match = VERDICT_PATTERN.search(response.strip())
+    return match.group(1).upper() if match else None
 
 
 def _load_examples(path: Path) -> list[dict[str, object]]:
@@ -104,6 +113,7 @@ def run_baseline(
     timeout_seconds: float,
     seed: int | None,
     limit: int | None,
+    reasoned: bool = False,
 ) -> tuple[int, int]:
     examples = _load_examples(examples_path)
     cached = _read_existing(output_path)
@@ -123,7 +133,8 @@ def run_baseline(
             row.get("prompt_sha256") != expected
             or row.get("model") != model
             or row.get("request_parameters")
-            != {"temperature": 0, "max_tokens": 4, "seed": seed}
+            != {"temperature": 0, "max_tokens": 256 if reasoned else 4, "seed": seed}
+            or row.get("reasoned_verdict", False) != reasoned
         ):
             raise ValueError(
                 "Prediction cache does not match prompts, model, or settings; "
@@ -146,23 +157,28 @@ def run_baseline(
             prompt=str(example["prompt"]),
             timeout_seconds=timeout_seconds,
             seed=seed,
+            max_tokens=256 if reasoned else 4,
         )
-        new_rows.append(
-            {
-                "id": example["id"],
-                "raw_output": raw_output,
-                "model": model,
-                "prompt_sha256": hashlib.sha256(
-                    str(example["prompt"]).encode("utf-8")
-                ).hexdigest(),
-                "latency_seconds": round(time.perf_counter() - started, 6),
-                "request_parameters": {
-                    "temperature": 0,
-                    "max_tokens": 4,
-                    "seed": seed,
-                },
-                "usage": usage,
-            }
-        )
+        prediction = {
+            "id": example["id"],
+            "raw_output": (parse_reasoned_verdict(raw_output) or raw_output)
+            if reasoned else raw_output,
+            "model": model,
+            "prompt_sha256": hashlib.sha256(
+                str(example["prompt"]).encode("utf-8")
+            ).hexdigest(),
+            "latency_seconds": round(time.perf_counter() - started, 6),
+            "request_parameters": {
+                "temperature": 0,
+                "max_tokens": 256 if reasoned else 4,
+                "seed": seed,
+            },
+            "usage": usage,
+        }
+        if reasoned:
+            prediction["reasoned_verdict"] = True
+            prediction["model_response"] = raw_output
+            prediction["verdict_valid"] = parse_reasoned_verdict(raw_output) is not None
+        new_rows.append(prediction)
         write_jsonl(output_path, [*cached, *new_rows])
     return len(new_rows), len(cached) + len(new_rows)

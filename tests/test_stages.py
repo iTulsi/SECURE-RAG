@@ -9,9 +9,13 @@ from unittest.mock import patch
 from secure_rag.evaluation import evaluate
 from secure_rag.stages import (
     apply_verification,
+    prepare_claim_evidence,
+    prepare_context_prompts,
     prepare_reranked_examples,
     prepare_verification,
+    route_by_context,
 )
+from secure_rag.retrieval import _retrieval_prompt
 
 
 def save(path: Path, rows: list[dict[str, object]]) -> None:
@@ -19,6 +23,94 @@ def save(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 class StageTests(unittest.TestCase):
+    def test_claim_evidence_keeps_facts_and_missing_context(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples, output = root / "examples.jsonl", root / "reasoned.jsonl"
+            context = {"containers": {"cna": {
+                "descriptions": [{"value": "Remote input issue", "supportingMedia": [
+                    {"value": "<p>Remote input issue</p>"}]}],
+                "metrics": [{"cvssV3_1": {"baseSeverity": "MEDIUM"}}],
+                "solutions": [{"value": "Upgrade the firmware"}],
+                "workarounds": [{"value": "Disable feature", "supportingMedia": [
+                    {"value": "Additional patch detail"}]}],
+                "references": [{"url": "https://example.invalid"}],
+            }}}
+            prompt = ("You are given the following JSON data as context: "
+                      + json.dumps(context)
+                      + "  Based on the context, you have to analyze the following statement: "
+                      + "The severity is medium.")
+            save(examples, [
+                {"id": "kcv-1", "task": "KCV", "question": "The severity is medium.",
+                 "gold_label": "F", "prompt": prompt},
+                {"id": "vood-1", "task": "VOOD", "question": "Unknown?",
+                 "gold_label": "X", "prompt": "No record"},
+            ])
+            self.assertEqual(prepare_claim_evidence(examples, output),
+                             {"context_present": 1, "context_missing": 1})
+            prepared = [json.loads(line) for line in output.read_text().splitlines()]
+            self.assertIn("MEDIUM", prepared[0]["prompt"])
+            self.assertIn("Upgrade the firmware", prepared[0]["prompt"])
+            self.assertIn("Additional patch detail", prepared[0]["prompt"])
+            self.assertNotIn("<p>Remote input issue</p>", prepared[0]["prompt"])
+            self.assertNotIn("example.invalid", prepared[0]["prompt"])
+            self.assertIn("There is no CVE record", prepared[1]["prompt"])
+            self.assertNotIn("VERDICT: X\n", prepared[1]["prompt"])
+            with self.assertRaisesRegex(ValueError, "new output path"):
+                prepare_claim_evidence(examples, examples)
+
+    def test_context_router_uses_prompts_without_consulting_gold(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples = root / "original.jsonl"
+            dense_examples = root / "dense.jsonl"
+            original = root / "original_predictions.jsonl"
+            dense = root / "dense_predictions.jsonl"
+            routed_examples = root / "routed_examples.jsonl"
+            routed_predictions = root / "routed_predictions.jsonl"
+            kcv_prompt = (
+                'You are given the following JSON data as context: {"affected":true}'
+                '  Based on the context, you have to analyze the following statement: Affected?'
+            )
+            save(examples, [
+                {"id": "kcv-1", "task": "KCV", "question": "Affected?",
+                 "gold_label": "T", "prompt": kcv_prompt},
+                {"id": "vood-1", "task": "VOOD", "question": "Affected?",
+                 "gold_label": "X", "prompt": "No CVE context. Affected?"},
+            ])
+            save(dense_examples, [
+                {"id": "kcv-1", "task": "KCV", "question": "Affected?",
+                 "gold_label": "T", "prompt": "Different retrieval prompt"},
+                {"id": "vood-1", "task": "VOOD", "question": "Affected?",
+                 "gold_label": "X", "prompt": _retrieval_prompt("Affected?", [])},
+            ])
+            save(original, [{"id": "kcv-1", "raw_output": "T", "model": "qwen"},
+                            {"id": "vood-1", "raw_output": "F", "model": "qwen"}])
+            save(dense, [{"id": "kcv-1", "raw_output": "X", "model": "qwen"},
+                         {"id": "vood-1", "raw_output": "X", "model": "qwen"}])
+            self.assertEqual(route_by_context(
+                examples, dense_examples, original, dense,
+                routed_examples, routed_predictions,
+            ), {"context_present": 1, "context_missing": 1})
+            routed = [json.loads(line) for line in routed_predictions.read_text().splitlines()]
+            self.assertEqual([(row["selected_run"], row["raw_output"]) for row in routed],
+                             [("E0", "T"), ("E1", "X")])
+            self.assertEqual(evaluate(routed_examples, routed_predictions)["overall"]["accuracy"], 1)
+            fresh_prompts = root / "fresh_prompts.jsonl"
+            self.assertEqual(prepare_context_prompts(examples, fresh_prompts),
+                             {"context_present": 1, "context_missing": 1})
+            self.assertEqual(fresh_prompts.read_text(), routed_examples.read_text())
+
+            save(dense_examples, [
+                {"id": "kcv-1", "task": "KCV", "question": "Affected?",
+                 "gold_label": "T", "prompt": "Different retrieval prompt"},
+                {"id": "vood-1", "task": "VOOD", "question": "Affected?",
+                 "gold_label": "X", "prompt": "Unexpected hint"},
+            ])
+            with self.assertRaisesRegex(ValueError, "prompt changed"):
+                route_by_context(examples, dense_examples, original, dense,
+                                 routed_examples, routed_predictions)
+
     def test_reranking_selects_model_relevant_passage_and_resumes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

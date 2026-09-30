@@ -13,9 +13,10 @@ def _source_order(source_url: str, seed: int) -> str:
 
 
 def select_paired_pilot(
-    kcv: list[Example], vood: list[Example], source_count: int, seed: int
+    kcv: list[Example], vood: list[Example], source_count: int, seed: int,
+    excluded_sources: frozenset[str] = frozenset(),
 ) -> tuple[list[Example], list[str]]:
-    all_sources = sorted({row.source_url for row in kcv})
+    all_sources = sorted({row.source_url for row in kcv} - excluded_sources)
     if source_count < 1 or source_count > len(all_sources):
         raise ValueError(
             f"source_count must be between 1 and {len(all_sources)}, got {source_count}"
@@ -46,8 +47,11 @@ def prepare_pilot(
     source_count: int,
     seed: int,
     upstream_commit: str | None,
+    excluded_sources: frozenset[str] = frozenset(),
 ) -> dict[str, object]:
-    examples, sources = select_paired_pilot(kcv, vood, source_count, seed)
+    examples, sources = select_paired_pilot(
+        kcv, vood, source_count, seed, excluded_sources
+    )
     examples_path = output_dir / "examples.jsonl"
     write_jsonl(examples_path, [row.to_dict() for row in examples])
 
@@ -62,6 +66,7 @@ def prepare_pilot(
         "task_counts": dict(sorted(task_counts.items())),
         "label_counts": dict(sorted(label_counts.items())),
         "selected_sources": sources,
+        "excluded_sources": sorted(excluded_sources),
         "upstream_commit": upstream_commit,
         "dataset_sha256": {
             task: sha256_file(data_dir / filename)

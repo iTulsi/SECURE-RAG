@@ -5,5 +5,9 @@ build/
 dist/
 *.egg-info/
 data/pilot/
+data/raw/
+data/corpus/
+data/holdout/
+data/full/
 outputs/*.jsonl
 outputs/*.json

@@ -1,4 +1,14 @@
-# SECURE-RAG reproducible baseline
+# SECURE-RAG: multiple-source cybersecurity evidence
+
+The v0.6 extension adds native CVE JSON 5, NVD API JSON, CISA KEV,
+CWE XML/ZIP, and MITRE ATT&CK STIX ingestion. It routes evidence by exact
+entity before BM25 or the existing dense+BM25 ranker, preserves source
+citations through reranking, and prepares a source-disjoint holdout.
+
+Start with [MULTISOURCE_REVIEW.md](MULTISOURCE_REVIEW.md) for the review demo,
+dataset roles, commands, measured results, and remaining inference step.
+The existing E0-E6 experimental tools from the tested v0.5 package are retained.
+No new model accuracy is claimed until fresh multi-source inference completes.
 
 This repository implements a pilot pipeline for **SECURE-RAG: Evidence-
 Grounded Cybersecurity Reasoning with Hybrid Retrieval, Reranking, and

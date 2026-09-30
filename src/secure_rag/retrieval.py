@@ -56,7 +56,9 @@ def chunk_context(context: object, max_chars: int = 1200) -> list[str]:
     current: list[str] = []
     current_length = 0
     for line in _flatten(context):
-        pieces = [line[index : index + max_chars] for index in range(0, len(line), max_chars)]
+        pieces = [
+            line[index : index + max_chars] for index in range(0, len(line), max_chars)
+        ]
         for piece in pieces:
             added = len(piece) + (1 if current else 0)
             if current and current_length + added > max_chars:
@@ -229,11 +231,19 @@ def _load_embedding_cache(path: Path, model: str) -> dict[str, list[float]]:
                 key = row["key"]
                 vector = row["embedding"]
             except (json.JSONDecodeError, KeyError) as error:
-                raise ValueError(f"Invalid embedding cache at line {line_number}") from error
+                raise ValueError(
+                    f"Invalid embedding cache at line {line_number}"
+                ) from error
             if row.get("model") != model:
                 raise ValueError("Embedding cache model does not match requested model")
-            if not isinstance(key, str) or key in cached or not isinstance(vector, list):
-                raise ValueError(f"Invalid or duplicate embedding at line {line_number}")
+            if (
+                not isinstance(key, str)
+                or key in cached
+                or not isinstance(vector, list)
+            ):
+                raise ValueError(
+                    f"Invalid or duplicate embedding at line {line_number}"
+                )
             cached[key] = [float(value) for value in vector]
     return cached
 
@@ -331,7 +341,10 @@ def prepare_dense_examples(
         ranked: list[tuple[float, str]] = []
         if chunks:
             ranked = sorted(
-                ((_cosine(embeddings[question], embeddings[chunk]), chunk) for chunk in chunks),
+                (
+                    (_cosine(embeddings[question], embeddings[chunk]), chunk)
+                    for chunk in chunks
+                ),
                 key=lambda item: (-item[0], item[1]),
             )[:top_k]
         evidence = [chunk for _, chunk in ranked]
@@ -407,6 +420,146 @@ def prepare_hybrid_examples(
                 "candidate_count": len(chunks),
                 "retrieved": ranked,
                 "candidate_pool": pool,
+            }
+        )
+    write_jsonl(output_path, output_rows)
+    write_jsonl(retrieval_path, retrieval_rows)
+    return retrieved_count, round(time.perf_counter() - started, 6)
+
+
+def prepare_multisource_examples(
+    examples_path: Path,
+    corpus_path: Path,
+    output_path: Path,
+    retrieval_path: Path,
+    strategy: str = "bm25",
+    top_k: int = 5,
+    max_chunk_chars: int = 1200,
+    embedding_cache_path: Path | None = None,
+    base_url: str | None = None,
+    model: str | None = None,
+    timeout_seconds: float = 120,
+    batch_size: int = 32,
+    rrf_k: int = 60,
+) -> tuple[int, float]:
+    """Route authorized evidence by entity, then reuse BM25 or dense+BM25 RRF.
+
+    This is a context-available benchmark protocol, not unrestricted global
+    search: prompts without supplied context cannot retrieve external evidence.
+    Never consult task names or gold labels to decide evidence availability.
+    """
+    from .corpus import entity_ids, load_corpus
+
+    if strategy not in {"bm25", "hybrid"} or top_k < 1 or rrf_k < 1:
+        raise ValueError("Use bm25/hybrid with positive top_k and rrf_k")
+    inputs = {examples_path.resolve(), corpus_path.resolve()}
+    outputs = [output_path.resolve(), retrieval_path.resolve()]
+    if embedding_cache_path is not None:
+        outputs.append(embedding_cache_path.resolve())
+    if len(set(outputs)) != len(outputs) or inputs.intersection(outputs):
+        raise ValueError("Use distinct input, output, retrieval, and cache paths")
+    if strategy == "hybrid" and not all((embedding_cache_path, base_url, model)):
+        raise ValueError("Hybrid retrieval needs embedding cache, base URL, and model")
+    corpus = load_corpus(corpus_path)
+    examples = _load_examples(examples_path)
+    if len({row["id"] for row in examples}) != len(examples):
+        raise ValueError("Example IDs must be unique")
+    by_entity: dict[str, list[dict[str, object]]] = {}
+    for row in corpus:
+        by_entity.setdefault(str(row["entity_id"]), []).append(row)
+    started = time.perf_counter()
+    pools: dict[str, list[dict[str, object]]] = {}
+    for example in examples:
+        question = example.get("question")
+        if not isinstance(question, str) or not question:
+            raise ValueError(f"Missing question for {example['id']}")
+        context = extract_context(str(example["prompt"]))
+        pool: list[dict[str, object]] = []
+        if context is not None:
+            # The source URL is routing metadata only after context is available.
+            context_text = json.dumps(context, sort_keys=True, ensure_ascii=False)
+            ids = entity_ids(
+                context_text + " " + str(example.get("source_url", "")) + " " + question
+            )
+            # ATT&CK techniques must be requested explicitly, not inferred from CVE wording.
+            ids = [
+                item
+                for item in ids
+                if not item.startswith("T") or item in entity_ids(question)
+            ]
+            pool.extend(
+                {
+                    "text": text,
+                    "source": "secure-context",
+                    "source_url": example.get("source_url", ""),
+                    "entity_id": ",".join(
+                        item for item in ids if item.startswith("CVE-")
+                    ),
+                    "id": hashlib.sha256(text.encode()).hexdigest(),
+                }
+                for text in chunk_context(context, max_chunk_chars)
+            )
+            for identifier in ids:
+                pool.extend(by_entity.get(identifier, []))
+            # Put citations in the passage itself so existing reranking keeps them.
+            pool = [
+                {**item, "text": f"Source URL: {item['source_url']}\n{item['text']}"}
+                for item in pool
+            ]
+        # Exact duplicate text cannot receive multiple ranking votes.
+        pools[str(example["id"])] = list(
+            {str(item["text"]): item for item in pool}.values()
+        )
+    embeddings: dict[str, list[float]] = {}
+    if strategy == "hybrid":
+        texts = [str(item["text"]) for pool in pools.values() for item in pool]
+        texts.extend(str(row["question"]) for row in examples if pools[str(row["id"])])
+        embeddings = _embed_with_cache(
+            texts, embedding_cache_path, base_url, model, timeout_seconds, batch_size
+        )
+    output_rows = []
+    retrieval_rows = []
+    retrieved_count = 0
+    corpus_hash = hashlib.sha256(corpus_path.read_bytes()).hexdigest()
+    for example in examples:
+        question = str(example["question"])
+        pool = pools[str(example["id"])]
+        texts = [str(item["text"]) for item in pool]
+        if strategy == "hybrid":
+            ranked = rank_hybrid(question, texts, embeddings, max(top_k, 10), rrf_k)
+        else:
+            scores = bm25_scores(question, texts)
+            order = sorted(
+                range(len(texts)), key=lambda index: (-scores[index], texts[index])
+            )
+            ranked = [
+                {
+                    "rank": rank,
+                    "score": scores[index],
+                    "bm25_score": scores[index],
+                    "text": texts[index],
+                }
+                for rank, index in enumerate(order[: max(top_k, 10)], 1)
+                if scores[index] > 0
+            ]
+        metadata = {str(item["text"]): item for item in pool}
+        ranked = [{**metadata[str(item["text"])], **item} for item in ranked]
+        retrieved = ranked[:top_k]
+        evidence = [str(item["text"]) for item in retrieved]
+        output_rows.append({**example, "prompt": _retrieval_prompt(question, evidence)})
+        retrieved_count += len(retrieved)
+        retrieval_rows.append(
+            {
+                "id": example["id"],
+                "retrieval_strategy": f"entity-routed-{strategy}",
+                "protocol": "context-available",
+                "corpus_sha256": corpus_hash,
+                "embedding_model": model if strategy == "hybrid" else None,
+                "candidate_count": len(pool),
+                "candidate_pool": ranked,
+                "retrieved": retrieved,
+                "context_available": extract_context(str(example["prompt"]))
+                is not None,
             }
         )
     write_jsonl(output_path, output_rows)

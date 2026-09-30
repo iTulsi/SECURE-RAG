@@ -7,10 +7,41 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from secure_rag.runner import run_baseline
+from secure_rag.runner import parse_reasoned_verdict, run_baseline
 
 
 class RunnerTests(unittest.TestCase):
+    def test_reasoned_verdict_is_strict_and_cache_is_isolated(self) -> None:
+        self.assertEqual(parse_reasoned_verdict("EVIDENCE: score 5.3\nVERDICT: F"), "F")
+        self.assertIsNone(parse_reasoned_verdict("VERDICT: F\nVERDICT: T because maybe"))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples = root / "examples.jsonl"
+            output = root / "predictions.jsonl"
+            examples.write_text(json.dumps({"id": "kcv-1", "prompt": "Claim and facts"}) + "\n")
+            with patch("secure_rag.runner._request_prediction",
+                       return_value=("EVIDENCE: baseSeverity MEDIUM\nVERDICT: F", {})) as call:
+                self.assertEqual(run_baseline(examples, output, "http://localhost/v1",
+                                              "qwen", 1, 7, None, reasoned=True), (1, 1))
+                self.assertEqual(call.call_args.kwargs["max_tokens"], 256)
+            saved = json.loads(output.read_text())
+            self.assertEqual(saved["raw_output"], "F")
+            self.assertTrue(saved["verdict_valid"])
+            self.assertIn("baseSeverity", saved["model_response"])
+            with patch("secure_rag.runner._request_prediction") as call:
+                self.assertEqual(run_baseline(examples, output, "http://localhost/v1",
+                                              "qwen", 1, 7, None, reasoned=True), (0, 1))
+                call.assert_not_called()
+            with self.assertRaisesRegex(ValueError, "cache does not match"):
+                run_baseline(examples, output, "http://localhost/v1", "qwen", 1, 7, None)
+            with patch("secure_rag.runner._request_prediction",
+                       return_value=("I cannot tell", {})):
+                run_baseline(examples, root / "invalid.jsonl", "http://localhost/v1",
+                             "qwen", 1, 7, None, reasoned=True)
+            invalid = json.loads((root / "invalid.jsonl").read_text())
+            self.assertFalse(invalid["verdict_valid"])
+            self.assertEqual(invalid["raw_output"], "I cannot tell")
+
     def test_resumes_cached_predictions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

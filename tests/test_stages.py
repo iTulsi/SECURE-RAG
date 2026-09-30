@@ -9,8 +9,10 @@ from unittest.mock import patch
 from secure_rag.evaluation import evaluate
 from secure_rag.stages import (
     apply_verification,
+    combine_decision_review,
     prepare_claim_evidence,
     prepare_context_prompts,
+    prepare_decision_review,
     prepare_reranked_examples,
     prepare_verification,
     route_by_context,
@@ -23,6 +25,64 @@ def save(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 class StageTests(unittest.TestCase):
+    def test_decision_review_routes_without_task_or_gold_and_preserves_prior(self) -> None:
+        import hashlib
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples, prior, prompts, fixed, reviewed, output = [root / name for name in (
+                "examples", "prior", "prompts", "fixed", "reviewed", "output")]
+            context = {"containers": {"cna": {"descriptions": [{"value": "SQL injection"}],
+                       "metrics": [{"cvssV3_1": {"baseScore": 5.3}}]}}}
+            def prompt(question: str) -> str:
+                return ("You are given the following JSON data as context: " + json.dumps(context)
+                        + "  Based on the context, you have to analyze the following statement: "
+                        + question)
+            rows = [{"id": "missing", "task": "KCV", "gold_label": "T",
+                     "question": "Claim", "prompt": "No supplied record"}]
+            for identifier, question in (("cvss", "The base score is 5.3."),
+                                         ("kept", "SQL injection"),
+                                         ("uncertain", "A buffer overflow"),
+                                         ("invalid", "Other mechanism")):
+                rows.append({"id": identifier, "task": "VOOD", "gold_label": "X",
+                             "question": question, "prompt": prompt(question)})
+            save(examples, rows)
+            baseline = [{"id": row["id"], "raw_output": label, "model_response": "saved"}
+                        for row, label in zip(rows, ("F", "F", "T", "X", "unfinished"))]
+            save(prior, baseline)
+            original = prior.read_bytes()
+            counts = prepare_decision_review(examples, prior, prompts, fixed)
+            self.assertEqual(counts, {"missing_context": 1, "cvss_facts": 1,
+                                     "retained_binary": 1, "model_review": 2})
+            prepared = [json.loads(line) for line in prompts.read_text().splitlines()]
+            self.assertEqual([row["id"] for row in prepared], ["uncertain", "invalid"])
+            self.assertNotIn("gold_label", prepared[0])
+            self.assertNotIn("saved", prepared[0]["prompt"])
+            self.assertIn("SQL injection", prepared[0]["prompt"])
+            save(reviewed, [{"id": row["id"], "raw_output": "F", "structured_verdict": True,
+                            "prompt_sha256": hashlib.sha256(row["prompt"].encode()).hexdigest(),
+                            "model_response": "fresh"} for row in prepared])
+            combine_decision_review(examples, prompts, fixed, reviewed, output)
+            combined = [json.loads(line) for line in output.read_text().splitlines()]
+            self.assertEqual([row["raw_output"] for row in combined], ["X", "T", "T", "F", "F"])
+            self.assertEqual(combined[3]["previous_prediction"]["raw_output"], "X")
+            self.assertEqual(prior.read_bytes(), original)
+            altered = [{**row, "gold_label": "F", "task": "KCV"} for row in rows]
+            save(examples, altered)
+            prepare_decision_review(examples, prior, root / "prompts2", root / "fixed2")
+            self.assertEqual(prompts.read_bytes(), (root / "prompts2").read_bytes())
+            self.assertEqual(fixed.read_bytes(), (root / "fixed2").read_bytes())
+            save(reviewed, [])
+            with self.assertRaisesRegex(ValueError, "do not match"):
+                combine_decision_review(examples, prompts, fixed, reviewed, output)
+            with self.assertRaisesRegex(ValueError, "new output paths"):
+                prepare_decision_review(examples, prior, examples, fixed)
+            save(prior, baseline[:-1])
+            with self.assertRaisesRegex(ValueError, "do not match"):
+                prepare_decision_review(examples, prior, prompts, fixed)
+            counts = prepare_decision_review(examples, None, prompts, fixed)
+            self.assertEqual(counts["model_review"], 3)
+            self.assertEqual(counts["retained_binary"], 0)
+
     def test_claim_evidence_keeps_facts_and_missing_context(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

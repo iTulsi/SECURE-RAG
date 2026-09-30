@@ -15,6 +15,57 @@ from secure_rag.runner import BaselineError
 
 
 class ReviewTests(unittest.TestCase):
+    def test_decision_review_cli_scores_complete_outputs_and_resumes(self):
+        argv = ["run-kcv-review", "--examples", str(self.examples),
+                "--predictions", str(self.baseline), "--output-dir", str(self.output)]
+        response = json.dumps({"evidence": "remote widget attack",
+                               "comparison": "Claim matches the record.", "verdict": "T"})
+        original = self.baseline.read_bytes()
+        with contextlib.redirect_stdout(io.StringIO()), patch(
+            "secure_rag.runner._request_prediction", return_value=(response, {})
+        ) as request:
+            self.assertEqual(main(argv), 0)
+        request.assert_called_once()
+        metrics = json.loads((self.output / "metrics.json").read_text())
+        self.assertEqual(metrics["overall"]["accuracy"], 1)
+        self.assertEqual(metrics["overall"]["examples"], 2)
+        self.assertEqual(self.baseline.read_bytes(), original)
+        manifest = json.loads((self.output / "run_manifest.json").read_text())
+        self.assertEqual(manifest["counts"]["model_review"], 1)
+        self.assertIn("Provided prior predictions", (self.output / "RESULTS.md").read_text())
+        self.assertTrue((self.output / "comparison.json").exists())
+        with contextlib.redirect_stdout(io.StringIO()), patch(
+            "secure_rag.runner._request_prediction"
+        ) as request:
+            self.assertEqual(main(argv), 0)
+        request.assert_not_called()
+        changed = [*argv, "--model", "different"]
+        with contextlib.redirect_stdout(io.StringIO()), patch(
+            "secure_rag.runner._request_prediction"
+        ) as request:
+            with self.assertRaisesRegex(ValueError, "cache does not match"):
+                main(changed)
+        request.assert_not_called()
+
+    def test_decision_review_cli_handles_zero_requests_and_rejects_wrong_ids(self):
+        argv = ["run-kcv-review", "--examples", str(self.examples),
+                "--predictions", str(self.baseline), "--output-dir", str(self.output)]
+        write_jsonl(self.baseline, [{"id": "kcv-1", "raw_output": "T"},
+                                   {"id": "vood-1", "raw_output": "F"}])
+        with contextlib.redirect_stdout(io.StringIO()), patch(
+            "secure_rag.runner._request_prediction"
+        ) as request:
+            self.assertEqual(main(argv), 0)
+        request.assert_not_called()
+        self.assertEqual((self.output / "review_predictions.jsonl").read_text(), "")
+        metrics = json.loads((self.output / "metrics.json").read_text())
+        self.assertEqual(metrics["overall"]["accuracy"], 1)
+        write_jsonl(self.baseline, [{"id": "wrong", "raw_output": "X"}])
+        with patch("secure_rag.runner._request_prediction") as request:
+            with self.assertRaisesRegex(ValueError, "IDs do not match"):
+                main(argv)
+        request.assert_not_called()
+
     def setUp(self):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)

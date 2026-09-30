@@ -7,10 +7,61 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from secure_rag.runner import parse_reasoned_verdict, repair_reasoned_predictions, run_baseline
+from secure_rag.runner import (
+    BaselineError, VERDICT_FORMAT, _request_prediction, parse_reasoned_verdict,
+    parse_structured_verdict, repair_reasoned_predictions, run_baseline,
+)
 
 
 class RunnerTests(unittest.TestCase):
+    def test_structured_verdict_rejects_bad_shapes_and_extra_fields(self) -> None:
+        valid = {"evidence": "UI:N", "comparison": "No interaction required.", "verdict": "T"}
+        self.assertEqual(parse_structured_verdict(json.dumps(valid)), "T")
+        for response in ("VERDICT: T", "{", "[]", json.dumps({**valid, "verdict": "true"}),
+                         json.dumps({**valid, "verdict": ["T"]}),
+                         json.dumps({**valid, "evidence": ""}),
+                         json.dumps({**valid, "extra": "F"})):
+            with self.subTest(response=response):
+                self.assertIsNone(parse_structured_verdict(response))
+
+    def test_request_sends_native_schema_without_new_dependencies(self) -> None:
+        from io import BytesIO
+        body = json.dumps({"choices": [{"message": {"content": "response"}}]}).encode()
+        with patch("secure_rag.runner.urllib.request.urlopen", return_value=BytesIO(body)) as call:
+            self.assertEqual(_request_prediction("http://localhost/v1", None, "qwen",
+                                                 "facts", 1, 7, 512, VERDICT_FORMAT),
+                             ("response", {}))
+        payload = json.loads(call.call_args.args[0].data)
+        self.assertEqual(payload["response_format"], VERDICT_FORMAT)
+        self.assertEqual(payload["max_tokens"], 512)
+
+    def test_structured_run_checkpoints_and_resumes_after_invalid_response(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples, output = root / "examples.jsonl", root / "predictions.jsonl"
+            examples.write_text("".join(json.dumps({"id": str(i), "prompt": f"fact {i}"})
+                                        + "\n" for i in range(2)))
+            response = json.dumps({"evidence": "XSS", "comparison": "Different mechanism.",
+                                   "verdict": "F"})
+            with patch("secure_rag.runner._request_prediction",
+                       side_effect=[(response, {}), ("{", {})]):
+                with self.assertRaisesRegex(BaselineError, "Invalid structured verdict"):
+                    run_baseline(examples, output, "http://localhost/v1", "qwen", 1, 7,
+                                 None, structured=True)
+            self.assertEqual(len(output.read_text().splitlines()), 1)
+            with patch("secure_rag.runner._request_prediction", return_value=(response, {})) as call:
+                self.assertEqual(run_baseline(examples, output, "http://localhost/v1", "qwen",
+                                              1, 7, None, structured=True), (1, 2))
+                call.assert_called_once()
+            saved = [json.loads(line) for line in output.read_text().splitlines()]
+            self.assertEqual(saved[0]["raw_output"], "F")
+            self.assertEqual(saved[0]["model_response"], response)
+            with self.assertRaisesRegex(ValueError, "cache does not match"):
+                run_baseline(examples, output, "http://localhost/v1", "different", 1, 7,
+                             None, structured=True)
+            with self.assertRaisesRegex(ValueError, "cache does not match"):
+                run_baseline(examples, output, "http://localhost/v1", "qwen", 1, 7, None)
+
     def test_verdict_accepts_markdown_and_explanation_without_guessing(self) -> None:
         for response in (
             "**VERDICT: F**", "VERDICT: F\n\nReason: contradicts the record.",

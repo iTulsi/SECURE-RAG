@@ -17,6 +17,20 @@ def write_rows(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 class CvssFactTests(unittest.TestCase):
+    def test_vector_interaction_and_unsupported_negation_or_compound(self) -> None:
+        context = {"containers": {"cna": {"metrics": [{"cvssV3_1": {
+            **METRIC, "vectorString": "CVSS:3.1/AV:N/UI:N/S:U",
+        }}]}}}
+        claim = "The CVSS vector string indicates that user interaction is not required for the exploit."
+        self.assertEqual(cvss_answer(claim, context), "T")
+        self.assertEqual(cvss_answer(claim.replace("not ", ""), context), "F")
+        context["containers"]["cna"]["metrics"][0]["cvssV3_1"]["userInteraction"] = "REQUIRED"
+        self.assertIsNone(cvss_answer(claim, context))
+        for claim in ("The base score is not 5.3.",
+                      "The base score is 5.3 and it allows remote code execution.",
+                      "The base score is 5.3, allowing remote code execution."):
+            self.assertIsNone(cvss_answer(claim, CONTEXT))
+
     def test_direct_comparisons_and_compound_claim(self) -> None:
         self.assertEqual(cvss_answer(
             "The CVSS v3.1 base score is higher than 7.", CONTEXT

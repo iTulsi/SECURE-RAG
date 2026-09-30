@@ -37,6 +37,27 @@ def cvss_answer(question: str, context: object) -> str | None:
     if metric is None:
         return None
     claim = question.lower().strip()
+    claim = re.sub(r"^true or false:\s*", "", claim)
+    interaction = re.fullmatch(
+        r"the cvss vector string indicates that user interaction is (not )?required"
+        r"(?: for the exploit)?[.?!]?", claim,
+    )
+    if interaction:
+        vector = metric.get("vectorString")
+        vector_match = re.search(r"(?:^|/)UI:([NR])(?:/|$)", vector) if isinstance(vector, str) else None
+        actual = metric.get("userInteraction")
+        if actual is None and vector_match:
+            actual = {"N": "NONE", "R": "REQUIRED"}[vector_match.group(1)]
+        if not isinstance(actual, str) or actual not in {"NONE", "REQUIRED"}:
+            return None
+        if vector_match and actual != {"N": "NONE", "R": "REQUIRED"}[vector_match.group(1)]:
+            return None
+        expected = "NONE" if interaction.group(1) else "REQUIRED"
+        return "T" if actual == expected else "F"
+    # The narrow comparator below does not parse negation or unrelated clauses.
+    # Send these to the model instead of partially evaluating a compound claim.
+    if re.search(r"\b(?:not|never|without|and|or|but|while)\b|n't\b", claim):
+        return None
     checks: list[bool] = []
 
     if "base score" in claim:
@@ -77,7 +98,29 @@ def cvss_answer(question: str, context: object) -> str | None:
 
     if not checks:
         return None
-    return "T" if all(checks) else "F"
+    if not all(checks):
+        return "F"
+    # A matching field proves T only when the entire claim fits this grammar.
+    number = r"\d+(?:\.\d+)?"
+    cvss = r"cvss(?:\s+v?3(?:\.1)?)?"
+    score_claim = (
+        rf"(?:the )?(?:{cvss} )?base score"
+        rf"(?: for (?:this vulnerability|cve-\d{{4}}-\d{{4,}}))?"
+        rf"(?: under version 3\.1| according to {cvss})?"
+        rf" (?:is|of) (?:(?:higher|greater) than )?{number}"
+        r"(?:, indicating a (?:low|medium|high|critical) severity(?: vulnerability)?)?[.?!]?"
+    )
+    severity_claim = (
+        r"(?:the )?severity is (?:categorized|rated|classified) as "
+        r"(?:low|medium|high|critical)[.?!]?"
+    )
+    complexity_claim = (
+        rf"(?:the )?attack complexity is (?:rated as )?(?:low|high)(?: in {cvss})?[.?!]?"
+    )
+    if any(re.fullmatch(pattern, claim) for pattern in
+           (score_claim, severity_claim, complexity_claim)):
+        return "T"
+    return None
 
 
 def apply_cvss_facts(examples_path: Path, predictions_path: Path, output_path: Path) -> int:

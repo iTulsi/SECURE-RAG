@@ -17,6 +17,36 @@ class BaselineError(RuntimeError):
 
 
 VERDICT_PATTERN = re.compile(r"VERDICT\s*:\s*([TFX])\.?", re.IGNORECASE)
+VERDICT_FORMAT = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "evidence_verdict", "strict": True,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "evidence": {"type": "string"},
+                "comparison": {"type": "string"},
+                "verdict": {"type": "string", "enum": ["T", "F", "X"]},
+            },
+            "required": ["evidence", "comparison", "verdict"],
+            "additionalProperties": False,
+        },
+    },
+}
+
+
+def parse_structured_verdict(response: str) -> str | None:
+    try:
+        value = json.loads(response)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(value, dict) or set(value) != {"evidence", "comparison", "verdict"}:
+        return None
+    if any(not isinstance(value[key], str) or not value[key].strip()
+           for key in ("evidence", "comparison")):
+        return None
+    verdict = value["verdict"]
+    return verdict if isinstance(verdict, str) and verdict in {"T", "F", "X"} else None
 
 
 def parse_reasoned_verdict(response: str) -> str | None:
@@ -79,6 +109,7 @@ def _request_prediction(
     timeout_seconds: float,
     seed: int | None,
     max_tokens: int = 4,
+    response_format: dict[str, object] | None = None,
 ) -> tuple[str, dict[str, object]]:
     payload: dict[str, object] = {
         "model": model,
@@ -88,6 +119,8 @@ def _request_prediction(
     }
     if seed is not None:
         payload["seed"] = seed
+    if response_format is not None:
+        payload["response_format"] = response_format
 
     headers = {"Content-Type": "application/json"}
     if api_key:
@@ -124,7 +157,14 @@ def run_baseline(
     limit: int | None,
     reasoned: bool = False,
     progress: bool = False,
+    structured: bool = False,
 ) -> tuple[int, int]:
+    if structured and reasoned:
+        raise ValueError("Choose one verdict format")
+    max_tokens = 512 if structured else (256 if reasoned else 4)
+    parameters = {"temperature": 0, "max_tokens": max_tokens, "seed": seed}
+    if structured:
+        parameters["response_format"] = VERDICT_FORMAT
     examples = _load_examples(examples_path)
     cached = _read_existing(output_path)
     if len({str(row["id"]) for row in examples}) != len(examples):
@@ -143,8 +183,14 @@ def run_baseline(
             row.get("prompt_sha256") != expected
             or row.get("model") != model
             or row.get("request_parameters")
-            != {"temperature": 0, "max_tokens": 256 if reasoned else 4, "seed": seed}
+            != parameters
             or row.get("reasoned_verdict", False) != reasoned
+            or row.get("structured_verdict", False) != structured
+            or (structured and (
+                not isinstance(row.get("model_response"), str)
+                or parse_structured_verdict(row["model_response"]) is None
+                or parse_structured_verdict(row["model_response"]) != row.get("raw_output")
+            ))
         ):
             raise ValueError(
                 "Prediction cache does not match prompts, model, or settings; "
@@ -167,8 +213,15 @@ def run_baseline(
             prompt=str(example["prompt"]),
             timeout_seconds=timeout_seconds,
             seed=seed,
-            max_tokens=256 if reasoned else 4,
+            max_tokens=max_tokens,
+            response_format=VERDICT_FORMAT if structured else None,
         )
+        structured_label = parse_structured_verdict(raw_output) if structured else None
+        if structured and structured_label is None:
+            raise BaselineError(
+                f"Invalid structured verdict for {example['id']}; response: {raw_output!r}. "
+                "Completed rows are saved; repeat the command to retry this row."
+            )
         prediction = {
             "id": example["id"],
             "raw_output": (parse_reasoned_verdict(raw_output) or raw_output)
@@ -178,17 +231,17 @@ def run_baseline(
                 str(example["prompt"]).encode("utf-8")
             ).hexdigest(),
             "latency_seconds": round(time.perf_counter() - started, 6),
-            "request_parameters": {
-                "temperature": 0,
-                "max_tokens": 256 if reasoned else 4,
-                "seed": seed,
-            },
+            "request_parameters": parameters,
             "usage": usage,
         }
         if reasoned:
             prediction["reasoned_verdict"] = True
             prediction["model_response"] = raw_output
             prediction["verdict_valid"] = parse_reasoned_verdict(raw_output) is not None
+        if structured:
+            prediction["raw_output"] = structured_label
+            prediction["structured_verdict"] = True
+            prediction["model_response"] = raw_output
         new_rows.append(prediction)
         write_jsonl(output_path, [*cached, *new_rows])
         if progress:

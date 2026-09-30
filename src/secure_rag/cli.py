@@ -9,7 +9,7 @@ from .corpus import build_corpus
 from .dataset import TASK_FILENAMES, load_and_validate, sha256_file, summarize
 from .evaluation import evaluate, write_metrics
 from .kcv_facts import apply_cvss_facts
-from .pilot import make_prediction_template, prepare_pilot
+from .pilot import make_prediction_template, prepare_pilot, write_jsonl
 from .retrieval import (
     prepare_dense_examples,
     prepare_hybrid_examples,
@@ -18,8 +18,10 @@ from .retrieval import (
 from .runner import BaselineError, repair_reasoned_predictions, run_baseline
 from .stages import (
     apply_verification,
+    combine_decision_review,
     prepare_claim_evidence,
     prepare_context_prompts,
+    prepare_decision_review,
     prepare_reranked_examples,
     prepare_verification,
     route_by_context,
@@ -124,6 +126,18 @@ def build_parser() -> argparse.ArgumentParser:
     review.add_argument("--model", default="qwen2.5:3b-instruct")
     review.add_argument("--seed", type=int, default=20260920)
     review.add_argument("--timeout", type=float, default=180)
+
+    improve = subparsers.add_parser(
+        "run-kcv-review", help="review uncertain claims with structured evidence decisions"
+    )
+    improve.add_argument("--examples", type=_path, default="data/pilot/examples.jsonl")
+    improve.add_argument("--predictions", type=_path,
+                         help="prior predictions to preserve valid binary decisions")
+    improve.add_argument("--output-dir", type=_path, default="outputs/kcv_review")
+    improve.add_argument("--base-url", default="http://localhost:11434/v1")
+    improve.add_argument("--model", default="qwen2.5:3b-instruct")
+    improve.add_argument("--seed", type=int, default=20260920)
+    improve.add_argument("--timeout", type=float, default=180)
 
     repair = subparsers.add_parser(
         "repair-reasoned", help="recover explicit verdicts from saved responses"
@@ -232,6 +246,75 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "repair-reasoned":
         counts = repair_reasoned_predictions(args.examples, args.predictions, args.output)
         print(json.dumps(counts, indent=2, sort_keys=True))
+        return 0
+    if args.command == "run-kcv-review":
+        names = ("review_examples.jsonl", "fixed_predictions.jsonl",
+                 "review_predictions.jsonl", "predictions.jsonl", "metrics.json",
+                 "comparison.json", "run_manifest.json", "RESULTS.md")
+        if {args.examples, args.predictions}.intersection(
+            (args.output_dir / name).resolve() for name in names
+        ):
+            raise ValueError("Choose an output directory that does not overwrite inputs")
+        baseline = evaluate(args.examples, args.predictions) if args.predictions else None
+        prompts, fixed, reviewed, combined = [args.output_dir / name for name in names[:4]]
+        counts = prepare_decision_review(args.examples, args.predictions, prompts, fixed)
+        print(json.dumps(counts, indent=2, sort_keys=True), flush=True)
+        try:
+            run_baseline(prompts, reviewed, args.base_url, args.model, args.timeout,
+                         args.seed, None, progress=True, structured=True)
+        except BaselineError as error:
+            raise SystemExit(
+                f"Review incomplete: {error}\nEnsure Ollama is running and supports "
+                "JSON-schema output. Repeat this command to resume. No new metrics written."
+            ) from error
+        if not reviewed.exists():
+            write_jsonl(reviewed, [])
+        combine_decision_review(args.examples, prompts, fixed, reviewed, combined)
+        metrics = evaluate(args.examples, combined)
+        write_metrics(args.output_dir / "metrics.json", metrics)
+        if args.predictions:
+            write_comparison(args.output_dir / "comparison.json",
+                             compare_runs(args.examples, args.predictions, combined))
+        manifest = {
+            "pipeline": "supplied-context routing, explicit CVSS facts, structured decision review",
+            "model": args.model, "seed": args.seed, "counts": counts,
+            "examples_sha256": sha256_file(args.examples),
+            "prior_predictions_sha256": sha256_file(args.predictions) if args.predictions else None,
+            "prompts_sha256": sha256_file(prompts),
+            "reviewed_predictions_sha256": sha256_file(reviewed),
+            "predictions_sha256": sha256_file(combined),
+            "model_request": {"temperature": 0, "max_tokens": 512, "format": "json_schema"},
+        }
+        write_metrics(args.output_dir / "run_manifest.json", manifest)
+        lines = ["# SECURE RAG measured decision-review results", "",
+                 f"Review model: `{args.model}`. Seed: `{args.seed}`.", "",
+                 "| Run | KCV accuracy | KCV coverage | VOOD accuracy | Overall accuracy |",
+                 "|---|---:|---:|---:|---:|"]
+        runs = [("Decision review", metrics)]
+        if baseline is not None:
+            runs.insert(0, ("Provided prior predictions", baseline))
+        for label, result in runs:
+            lines.append(f"| {label} | {result['kcv']['accuracy']:.2%} | "
+                         f"{result['kcv']['coverage']:.2%} | {result['vood']['accuracy']:.2%} | "
+                         f"{result['overall']['accuracy']:.2%} |")
+        lines.extend(["", f"Routing counts: `{json.dumps(counts, sort_keys=True)}`.",
+                      f"Invalid predictions: {metrics['overall']['invalid_predictions']}.",
+                      f"Overall macro F1: {metrics['overall']['macro_f1']:.6f}.",
+                      f"Abstention F1: {metrics['abstention']['f1']:.6f}.", "",
+                      "Decisions use original supplied CVE evidence. No external retrieval "
+                      "or model training was performed in this run. Missing context produces "
+                      "X. Explicit supported CVSS claims use deterministic checks. Other "
+                      "prior T/F decisions are retained; uncertain/invalid decisions get a "
+                      "fresh model review. Without prior predictions all remaining "
+                      "context-bearing claims get model review.", "",
+                      "Gold labels and task names are used only for scoring. Prompts, saved "
+                      "model responses, prior predictions, hashes, and paired changes are "
+                      "available in this directory. Pilot results are exploratory; evaluate "
+                      "the source-disjoint holdout without tuning against its labels.", ""])
+        report = args.output_dir / "RESULTS.md"
+        report.write_text("\n".join(lines), encoding="utf-8")
+        print(f"Complete. KCV: {metrics['kcv']['accuracy']:.2%}; "
+              f"overall: {metrics['overall']['accuracy']:.2%}. Report: {report}")
         return 0
     if args.command == "run-review":
         names = (

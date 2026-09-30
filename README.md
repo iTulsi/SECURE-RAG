@@ -1,5 +1,37 @@
 # SECURE-RAG: multiple-source cybersecurity evidence
 
+## Decision review for the repaired evidence-first run
+
+Run this in the existing project folder after applying the parser fix:
+
+```bash
+bash RUN_KCV_IMPROVEMENT.command
+```
+
+`run-kcv-review` uses the original supplied CVE record. It routes missing context
+to X, checks narrowly supported CVSS facts, retains other existing T/F decisions,
+and reviews X/invalid decisions using JSON-schema output with saved evidence and
+comparison text. It reuses the existing runner and context compaction and adds no
+dependencies. Each successful model response is saved immediately; repeating the
+same command resumes. Schema validation controls format, not factual correctness.
+Results, paired comparisons, prior predictions, and hashes appear under
+`outputs/kcv_review`. The new accuracy is unknown until inference completes.
+
+After the pilot, evaluate the fixed method on the source-disjoint holdout:
+
+```bash
+export PYTHONPATH="$PWD/src"
+python3.11 -m secure_rag run-kcv-review \
+  --examples data/holdout/examples.jsonl \
+  --output-dir outputs/kcv_review_holdout
+```
+
+Without `--predictions`, every remaining context-bearing claim gets a fresh model
+review. Use original benchmark examples, not previously rewritten retrieval or
+claim-evidence prompts. Do not tune against holdout labels. A different model
+requires a fresh output directory. See Ollama's official documentation for
+[structured output support](https://docs.ollama.com/capabilities/structured-outputs).
+
 The v0.6 extension adds native CVE JSON 5, NVD API JSON, CISA KEV,
 CWE XML/ZIP, and MITRE ATT&CK STIX ingestion. It routes evidence by exact
 entity before BM25 or the existing dense+BM25 ranker, preserves source

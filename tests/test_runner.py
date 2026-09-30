@@ -7,10 +7,53 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from secure_rag.runner import parse_reasoned_verdict, run_baseline
+from secure_rag.runner import parse_reasoned_verdict, repair_reasoned_predictions, run_baseline
 
 
 class RunnerTests(unittest.TestCase):
+    def test_verdict_accepts_markdown_and_explanation_without_guessing(self) -> None:
+        for response in (
+            "**VERDICT: F**", "VERDICT: F\n\nReason: contradicts the record.",
+            "Reason: contradiction.\n**VERDICT:** **F**", "`VERDICT: F`",
+            "VERDICT: F.\nMore explanation.", "F",
+        ):
+            with self.subTest(response=response):
+                self.assertEqual(parse_reasoned_verdict(response), "F")
+        for response in (
+            "VERDICT: T\nVERDICT: F", "The statement is false.",
+            "VERDICT: F because of evidence", "VERDICT: T\nVERDICT: uncertain",
+            "EVIDENCE: long text cut off before a verdict",
+        ):
+            with self.subTest(response=response):
+                self.assertIsNone(parse_reasoned_verdict(response))
+
+    def test_repair_preserves_responses_and_does_not_call_model(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            examples, predictions, output = [root / name for name in (
+                "examples.jsonl", "predictions.jsonl", "repaired.jsonl"
+            )]
+            examples.write_text(json.dumps({"id": "k1", "prompt": "evidence"}) + "\n")
+            response = "**VERDICT: F**\nReason: contradiction."
+            predictions.write_text(json.dumps({
+                "id": "k1", "raw_output": response, "model_response": response,
+                "reasoned_verdict": True, "verdict_valid": False,
+            }) + "\n")
+            original = predictions.read_bytes()
+            with patch("secure_rag.runner._request_prediction") as request:
+                counts = repair_reasoned_predictions(examples, predictions, output)
+            request.assert_not_called()
+            self.assertEqual(counts["valid_verdicts"], 1)
+            repaired = json.loads(output.read_text())
+            self.assertEqual(repaired["raw_output"], "F")
+            self.assertEqual(repaired["model_response"], response)
+            self.assertEqual(predictions.read_bytes(), original)
+            with self.assertRaisesRegex(ValueError, "new output"):
+                repair_reasoned_predictions(examples, predictions, predictions)
+            examples.write_text(json.dumps({"id": "other", "prompt": "evidence"}) + "\n")
+            with self.assertRaisesRegex(ValueError, "IDs do not match"):
+                repair_reasoned_predictions(examples, predictions, output)
+
     def test_reasoned_verdict_is_strict_and_cache_is_isolated(self) -> None:
         self.assertEqual(parse_reasoned_verdict("EVIDENCE: score 5.3\nVERDICT: F"), "F")
         self.assertIsNone(parse_reasoned_verdict("VERDICT: F\nVERDICT: T because maybe"))

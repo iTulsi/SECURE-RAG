@@ -15,7 +15,7 @@ from .retrieval import (
     prepare_hybrid_examples,
     prepare_multisource_examples,
 )
-from .runner import BaselineError, run_baseline
+from .runner import BaselineError, repair_reasoned_predictions, run_baseline
 from .stages import (
     apply_verification,
     prepare_claim_evidence,
@@ -125,6 +125,12 @@ def build_parser() -> argparse.ArgumentParser:
     review.add_argument("--seed", type=int, default=20260920)
     review.add_argument("--timeout", type=float, default=180)
 
+    repair = subparsers.add_parser(
+        "repair-reasoned", help="recover explicit verdicts from saved responses"
+    )
+    for name in ("examples", "predictions", "output"):
+        repair.add_argument(f"--{name}", required=True, type=_path)
+
     dense = subparsers.add_parser(
         "prepare-dense", help="retrieve evidence for the E1 dense-only experiment"
     )
@@ -223,6 +229,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "repair-reasoned":
+        counts = repair_reasoned_predictions(args.examples, args.predictions, args.output)
+        print(json.dumps(counts, indent=2, sort_keys=True))
+        return 0
     if args.command == "run-review":
         names = (
             "examples.jsonl", "retrieval.jsonl", "predictions.jsonl", "metrics.json",

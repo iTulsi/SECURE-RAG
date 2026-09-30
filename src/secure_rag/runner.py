@@ -16,12 +16,21 @@ class BaselineError(RuntimeError):
     """Raised when the model endpoint returns an unusable response."""
 
 
-VERDICT_PATTERN = re.compile(r"(?:^|\n)VERDICT:\s*([TFX])\s*$", re.IGNORECASE)
+VERDICT_PATTERN = re.compile(r"VERDICT\s*:\s*([TFX])\.?", re.IGNORECASE)
 
 
 def parse_reasoned_verdict(response: str) -> str | None:
-    match = VERDICT_PATTERN.search(response.strip())
-    return match.group(1).upper() if match else None
+    # Accept explicit verdict lines wherever they occur, including Markdown.
+    # Never infer a label from explanatory prose or pick between disagreements.
+    if response.strip().upper() in {"T", "F", "X"}:
+        return response.strip().upper()
+    lines = [re.sub(r"[*_`]", "", line).strip() for line in response.splitlines()]
+    declarations = [line for line in lines if re.match(r"VERDICT\s*:", line, re.I)]
+    matches = [VERDICT_PATTERN.fullmatch(line) for line in declarations]
+    if not matches or any(match is None for match in matches):
+        return None
+    labels = {match.group(1).upper() for match in matches}
+    return next(iter(labels)) if len(labels) == 1 else None
 
 
 def _load_examples(path: Path) -> list[dict[str, object]]:
@@ -183,10 +192,43 @@ def run_baseline(
         new_rows.append(prediction)
         write_jsonl(output_path, [*cached, *new_rows])
         if progress:
+            display = prediction["raw_output"]
+            if reasoned and not prediction["verdict_valid"]:
+                display = "INVALID verdict (full response saved)"
             print(
                 f"Saved {len(cached) + len(new_rows)}/{len(examples)}: "
-                f"{example['id']} -> {prediction['raw_output']!r} "
+                f"{example['id']} -> {display!r} "
                 f"({prediction['latency_seconds']:.1f}s)",
                 flush=True,
             )
     return len(new_rows), len(cached) + len(new_rows)
+
+
+def repair_reasoned_predictions(
+    examples_path: Path, predictions_path: Path, output_path: Path,
+) -> dict[str, int]:
+    """Reparse explicit verdicts from saved model responses without new inference."""
+    if output_path.resolve() in {examples_path.resolve(), predictions_path.resolve()}:
+        raise ValueError("Choose a new output path")
+    examples = _load_examples(examples_path)
+    predictions = _read_existing(predictions_path)
+    ids = {row["id"] for row in examples}
+    if len(ids) != len(examples) or {row["id"] for row in predictions} != ids:
+        raise ValueError("Prediction IDs do not match examples")
+    repaired = []
+    counts = {"examples": len(predictions), "valid_verdicts": 0, "invalid_verdicts": 0}
+    for row in predictions:
+        response = row.get("model_response")
+        if row.get("reasoned_verdict") is not True or not isinstance(response, str):
+            raise ValueError(f"Missing saved reasoned response for {row['id']}")
+        label = parse_reasoned_verdict(response)
+        counts["valid_verdicts" if label else "invalid_verdicts"] += 1
+        repaired.append({
+            **row,
+            "previous_raw_output": row.get("raw_output"),
+            "raw_output": label if label else response,
+            "verdict_valid": label is not None,
+            "verdict_parser": "explicit-line-v2",
+        })
+    write_jsonl(output_path, repaired)
+    return counts

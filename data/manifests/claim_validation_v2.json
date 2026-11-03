@@ -1,0 +1,22 @@
+{
+  "case_count": 265,
+  "chunk_chars": 1200,
+  "condition_counts": {
+    "bm25_top3": 53,
+    "full_record": 53,
+    "missing": 53,
+    "mixed": 53,
+    "unrelated": 53
+  },
+  "expected_calls": 742,
+  "groups": 14,
+  "inputs_sha256": "15714a184a01050cdf34c0d6d9801cc822e9f78d6ff306cc2c47f01d04c27e67",
+  "labels_sha256": "bbe41da4f1ad36da735c8cd6859c684a046231ebb93ad512e940ed207db9bdfc",
+  "paired_claims": 53,
+  "schema_version": 1,
+  "source_manifest_sha256": "4e14284edd70c0a778018ba443dcf5a842f01876165226bd5794fec0a2007112",
+  "split": "validation",
+  "study": "cited-claim-evidence-v2",
+  "test_policy": "Version-1 test is already observed; this is validation-only. No fresh-test claim.",
+  "top_k": 3
+}

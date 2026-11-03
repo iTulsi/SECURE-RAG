@@ -1,10 +1,22 @@
 # SECURE-RAG: evidence-based cybersecurity claim verification
 
+## IMDAI research submission
+
+| Deliverable | Location |
+| --- | --- |
+| Final code and tests | [src/secure_rag](src/secure_rag), [tests](tests) |
+| Training, validation and test splits | [Split files and data preparation](data/README.md) |
+| IEEE paper | [PDF](papers/SECURE_RAG_IEEE_Paper.pdf) |
+| Springer-style paper | [PDF](papers/SECURE_RAG_Springer_Style_Paper.pdf) |
+| Presentation | [PowerPoint](presentation/SECURE_RAG_Minimalist_Presentation.pptx) |
+
+The final implementation includes the six-task benchmark, fresh-claim evaluation, and Apple Silicon LoRA trial. Their run instructions are in [protocols](protocols). On KCV validation, the archived LoRA trial scored 42/53 (79.25%) versus 34/53 (64.15%) for the matched base. The papers document the evaluation and its limitations.
+
 Research implementation by **Tulsi Tomar, B.Tech CSE (Cybersecurity), Bennett University**, based on [SECURE: Benchmarking Large Language Models for Cybersecurity](https://github.com/aiforsec/SECURE) (ACSAC 2024).
 
 The project checks whether a small local model can distinguish a supported cybersecurity claim, a contradicted claim, and a claim that cannot be decided from CVE evidence. It implements retrieval experiments and a focused decision-review pipeline with **Qwen 2.5 3B Instruct through Ollama**. Runtime code uses Python's standard library.
 
-## Latest measured results
+## Earlier retrieval pilot
 
 The development pilot contains **144 examples: 72 KCV and 72 VOOD**, grouped by 20 CVE sources. These are pilot results, not full-benchmark scores.
 

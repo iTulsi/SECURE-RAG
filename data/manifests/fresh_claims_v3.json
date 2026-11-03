@@ -1,0 +1,481 @@
+{
+  "case_count": 160,
+  "catalog_sha256": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+  "catalog_url": "https://raw.githubusercontent.com/cisagov/kev-data/7ccba8e1223ccec82d12c7736bf3fae11e5bee86/known_exploited_vulnerabilities.json",
+  "chunk_chars": 1200,
+  "condition_counts": {
+    "fresh_cve": 160
+  },
+  "cve_revision": "6125463712241a8a7cca97b445c85415f26a8b09",
+  "excluded_sources": [
+    {
+      "cve": "CVE-2025-62221",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-21418",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-47812",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-1976",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-43529",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-32706",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-24984",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-39964",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-43520",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-48543",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-0411",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-9242",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-31161",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-66644",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-14611",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-67038",
+      "reason": "Not a published 2025 record"
+    },
+    {
+      "cve": "CVE-2025-10585",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-31200",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-55182",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-34028",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-27363",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-47729",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-59230",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-2783",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-54309",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-32463",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-21333",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-24990",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-24813",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-31201",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-40536",
+      "reason": "Not a published 2025 record"
+    },
+    {
+      "cve": "CVE-2025-48572",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-6554",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-48703",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-47827",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-43510",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-32701",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-25181",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-30406",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-62215",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-48928",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-8875",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-59689",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-42599",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-48595",
+      "reason": "Not a published 2025 record"
+    },
+    {
+      "cve": "CVE-2025-8110",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-49704",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-0994",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-48700",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-5777",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-29824",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-9377",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-23006",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-33073",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-4008",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-21335",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-32975",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-59374",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-0111",
+      "reason": "Missing or conflicting CNA CVSS v3.1 facts"
+    },
+    {
+      "cve": "CVE-2025-55177",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-60710",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    },
+    {
+      "cve": "CVE-2025-59287",
+      "reason": "Incomplete CNA CVSS v3.1 assessment"
+    }
+  ],
+  "expected_calls": 480,
+  "gold_labels": {
+    "F": 80,
+    "T": 80
+  },
+  "groups": 40,
+  "inputs_sha256": "d1a5f4b5b9a765e151ea768c4458334676c0c827227cdac58bd766bcaa13e4d8",
+  "kev_revision": "7ccba8e1223ccec82d12c7736bf3fae11e5bee86",
+  "label_status": "machine-derived controlled facts; human review pending",
+  "labels_sha256": "8afc2694f84da23cef13f5bd33b46f0e6d31c534034af13fde7d24231f67ea22",
+  "primary_endpoint": "verdict_accuracy",
+  "schema_version": 1,
+  "scope": "2025 KEV-listed CVEs with short, nonconflicting CNA CVSS v3.1 severity and user-interaction facts; not a representative natural-claim or all-task benchmark.",
+  "seed": 20261102,
+  "selected_sources": [
+    {
+      "cve": "CVE-2025-2747",
+      "sha256": "6d415dd54283fdc86a62c053744ffbf3389b5e3fd5cf85412b300c91478d6c61",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/2xxx/CVE-2025-2747.json"
+    },
+    {
+      "cve": "CVE-2025-20281",
+      "sha256": "039b4248546762b24538b056e5475f2e5c8f6f22603336dc4bacd521dce09d29",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/20xxx/CVE-2025-20281.json"
+    },
+    {
+      "cve": "CVE-2025-41244",
+      "sha256": "84fd4e6546e815383098fa57d8bf0b2666e653b4f4082ba04c11c350cc66fe1d",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/41xxx/CVE-2025-41244.json"
+    },
+    {
+      "cve": "CVE-2025-2746",
+      "sha256": "8c693f2eae8b08619656c7ec297c89adb95969e08b8ccfef6dd1e2617946725b",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/2xxx/CVE-2025-2746.json"
+    },
+    {
+      "cve": "CVE-2025-58034",
+      "sha256": "a750d40e8c87940172f37561dddc5facb0402bfc6895da46e1d79e78f4662ad7",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/58xxx/CVE-2025-58034.json"
+    },
+    {
+      "cve": "CVE-2025-52691",
+      "sha256": "d0bd157e89dd1125dce7ba249e72d7eb5a3f84fc946392eac996269bddd3e029",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/52xxx/CVE-2025-52691.json"
+    },
+    {
+      "cve": "CVE-2025-3928",
+      "sha256": "c4260090ccf3e99b6a6a293c4fd4bd888266338f0b49a582914d7f7577034480",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/3xxx/CVE-2025-3928.json"
+    },
+    {
+      "cve": "CVE-2025-21042",
+      "sha256": "da93784c621a836dee478ae26f6e6ae79a2afb93b3cf0589e9ca25df07528c8d",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/21xxx/CVE-2025-21042.json"
+    },
+    {
+      "cve": "CVE-2025-35939",
+      "sha256": "4e277deb4514edfd13869c44b72d02a7937611197a1bd563106fa44372bd9822",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/35xxx/CVE-2025-35939.json"
+    },
+    {
+      "cve": "CVE-2025-6205",
+      "sha256": "93b51d4fde49aa115c7a2b279aacdd3a96c709191d40483ee1d7c45e36719f6d",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/6xxx/CVE-2025-6205.json"
+    },
+    {
+      "cve": "CVE-2025-61757",
+      "sha256": "000aa761696d97919f8ee3c516bdfba76bfbd5d4d9876bed749e7ee35c94f782",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/61xxx/CVE-2025-61757.json"
+    },
+    {
+      "cve": "CVE-2025-21479",
+      "sha256": "992cb88229ad7649c59e16eea982b4642beb94b8ea8851946a1e87bec3cc701c",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/21xxx/CVE-2025-21479.json"
+    },
+    {
+      "cve": "CVE-2025-20393",
+      "sha256": "261fbbf4b3a249c6590975a81a188e81d1abe5c6c6cbca51f5e7c8e67be84e0f",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/20xxx/CVE-2025-20393.json"
+    },
+    {
+      "cve": "CVE-2025-30154",
+      "sha256": "897c6c8c82bceb39c6ea4206e1401edd80b08c7f55f2f9f9aa3d1f6709a097a5",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/30xxx/CVE-2025-30154.json"
+    },
+    {
+      "cve": "CVE-2025-54253",
+      "sha256": "fd8a2b27aeabe3d37a93f55c3dafa9753773ab979d8e8fb2e4fd9197dbd8b062",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/54xxx/CVE-2025-54253.json"
+    },
+    {
+      "cve": "CVE-2025-3248",
+      "sha256": "bcf9d7d866255e37157316cc67f3032d8e26b46145892835e4fd5eecbb92f2a1",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/3xxx/CVE-2025-3248.json"
+    },
+    {
+      "cve": "CVE-2025-4428",
+      "sha256": "f327a4d7c67963ca08edc34a44913d151ede3ec555e4c8207f069e87e68572ae",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/4xxx/CVE-2025-4428.json"
+    },
+    {
+      "cve": "CVE-2025-24016",
+      "sha256": "9937f4ace495de981eba3ca4b6af550d96eecb9ccf603f66a2bb7e127c1aa684",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/24xxx/CVE-2025-24016.json"
+    },
+    {
+      "cve": "CVE-2025-24893",
+      "sha256": "0425e5eab88bba39d6c152bb9030e4cdf6ca3272ac89aa5dad60f1d377c2824f",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/24xxx/CVE-2025-24893.json"
+    },
+    {
+      "cve": "CVE-2025-2775",
+      "sha256": "fc27a425725f0b3d6f337e58a062160652cacd941d38474ea388dc4029c544d9",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/2xxx/CVE-2025-2775.json"
+    },
+    {
+      "cve": "CVE-2025-53690",
+      "sha256": "d26e0241bd7ac077d0c0c439e7edfbc3acdacdf9291d5f229151e5bb061ea14e",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/53xxx/CVE-2025-53690.json"
+    },
+    {
+      "cve": "CVE-2025-21590",
+      "sha256": "0c7081ef7565da245b2eb67a3e3f579f9eedbd6a70b0fb684307b4e5e366f097",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/21xxx/CVE-2025-21590.json"
+    },
+    {
+      "cve": "CVE-2025-42999",
+      "sha256": "25f166eae7ee3f6648888b7c92da9d716193788654a743d3fa7daa31e61bed04",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/42xxx/CVE-2025-42999.json"
+    },
+    {
+      "cve": "CVE-2025-22457",
+      "sha256": "be96d145b8b2a56a28efbd2c3f2879d8771bea642260fa8482e87350b96e0795",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/22xxx/CVE-2025-22457.json"
+    },
+    {
+      "cve": "CVE-2025-59718",
+      "sha256": "7c9a2426bac835d2e0a2eeaac13520b48e988d110ab933176cccd1646152e663",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/59xxx/CVE-2025-59718.json"
+    },
+    {
+      "cve": "CVE-2025-2749",
+      "sha256": "f83550377e21291ab76c775cef3facf38142d70714be7b083715e12663d3f900",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/2xxx/CVE-2025-2749.json"
+    },
+    {
+      "cve": "CVE-2025-31324",
+      "sha256": "3ecae6da6992185f8fd8c6b54e509a821b24ee70897b71ffc91558026d3fde13",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/31xxx/CVE-2025-31324.json"
+    },
+    {
+      "cve": "CVE-2025-20333",
+      "sha256": "a0ff08e8efe8b7f08a5a8069d8cec72219691ec9b2ce90288eeb0e4da2903ed4",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/20xxx/CVE-2025-20333.json"
+    },
+    {
+      "cve": "CVE-2025-22226",
+      "sha256": "65fbe0a286e7e486eebbc00d6f05a524055126aa2eefcf04de8e5d36c6b26b62",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/22xxx/CVE-2025-22226.json"
+    },
+    {
+      "cve": "CVE-2025-2776",
+      "sha256": "d38910609ef7b2536ed5d865a76b474de6036df61dda82a9f67f6fbd682a1910",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/2xxx/CVE-2025-2776.json"
+    },
+    {
+      "cve": "CVE-2025-5086",
+      "sha256": "aca2177bffd7727802cab6b6519af96910b85e5ab68de42867fbc7ed31ea54fe",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/5xxx/CVE-2025-5086.json"
+    },
+    {
+      "cve": "CVE-2025-14847",
+      "sha256": "2e74a620c338173d3314a755edc68aa2aa243845b4a16e293df87ba8cc83bf66",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/14xxx/CVE-2025-14847.json"
+    },
+    {
+      "cve": "CVE-2025-53521",
+      "sha256": "85b3eceaef259f107ddecb0e9c36d27359c6dede2bf67f29dc0a7772d51dfad7",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/53xxx/CVE-2025-53521.json"
+    },
+    {
+      "cve": "CVE-2025-21043",
+      "sha256": "fe22bb54e40b0eaba9b0f4d05abf8f8a96bfb49a276587895120b7d7732f1133",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/21xxx/CVE-2025-21043.json"
+    },
+    {
+      "cve": "CVE-2025-25257",
+      "sha256": "8b82e0f1f6360a0c7a21d3a64992c62ba25933d0bbc791821c45c732caddf617",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/25xxx/CVE-2025-25257.json"
+    },
+    {
+      "cve": "CVE-2025-0282",
+      "sha256": "49d2e4fc9c28ff0e3b9b565a055c2f7bbbfb1b303107f01ad8e366c55eb1bd5f",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/0xxx/CVE-2025-0282.json"
+    },
+    {
+      "cve": "CVE-2025-22224",
+      "sha256": "d338080d9a727d9b789bb099fb8b06481c56cd7384d309267aca626d84b06b25",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/22xxx/CVE-2025-22224.json"
+    },
+    {
+      "cve": "CVE-2025-31125",
+      "sha256": "157e31d651cfa28b04acf71b7526d9c7e82177c1609e3b47a56d275d939b27f7",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/31xxx/CVE-2025-31125.json"
+    },
+    {
+      "cve": "CVE-2025-10035",
+      "sha256": "dfe7e2f91a93f98ed8659f6c4d5b4a939a368705c6752b4430b4eadeabd18c2b",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/10xxx/CVE-2025-10035.json"
+    },
+    {
+      "cve": "CVE-2025-1316",
+      "sha256": "adf29c105cb86402629ad4ccbe102e9f0890a6f94ff70c2d19d6d6255fb05a70",
+      "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/6125463712241a8a7cca97b445c85415f26a8b09/cves/2025/1xxx/CVE-2025-1316.json"
+    }
+  ],
+  "source_count": 40,
+  "source_manifest_sha256": "61d95cdd2a0de27a278a6de11c96b611c1a99ddb611ceb7d81ae7079b3b3935b",
+  "split": "external_structured_fact_test",
+  "study": "cited-claims-fresh-v3",
+  "top_k": 3
+}

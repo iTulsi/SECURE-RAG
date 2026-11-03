@@ -1,0 +1,1892 @@
+{
+  "excluded_pairs": [],
+  "files_sha256": {
+    "smoke/train.jsonl": "aaf27c54b8330424b028a37a9ebbde586a9b79347a701c97eab0851f9e7f9d86",
+    "smoke/valid.jsonl": "1b70f522cfb1f5804f3196e9558a73d12b838c3377edd580f1cea2b67eba52e8",
+    "train.jsonl": "506e6ca0b26e2c9863d40502446cbd238abdaec247fc628ffdea52ca91fb17cb",
+    "valid.jsonl": "9fb25f70087631591863004bbee7348a512779b5cf390cb8df47c0e4f8348561",
+    "validation_inputs.jsonl": "99e216f89631e5586e1e0dfc8531d5ddfb63ee437c266cad306eb1d619de9512",
+    "validation_labels.jsonl": "9624488d4714d9a61a7be11ade85202bd060cdc9ba36a450d063220989e1b46d"
+  },
+  "included": [
+    {
+      "id": "kcv-0004",
+      "split": "validation",
+      "tokens": 545
+    },
+    {
+      "id": "vood-0004",
+      "split": "validation",
+      "tokens": 111
+    },
+    {
+      "id": "kcv-0005",
+      "split": "validation",
+      "tokens": 552
+    },
+    {
+      "id": "vood-0005",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0006",
+      "split": "validation",
+      "tokens": 546
+    },
+    {
+      "id": "vood-0006",
+      "split": "validation",
+      "tokens": 112
+    },
+    {
+      "id": "kcv-0007",
+      "split": "validation",
+      "tokens": 543
+    },
+    {
+      "id": "vood-0007",
+      "split": "validation",
+      "tokens": 109
+    },
+    {
+      "id": "kcv-0008",
+      "split": "development",
+      "tokens": 1764
+    },
+    {
+      "id": "vood-0008",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0009",
+      "split": "development",
+      "tokens": 1758
+    },
+    {
+      "id": "vood-0009",
+      "split": "development",
+      "tokens": 110
+    },
+    {
+      "id": "kcv-0010",
+      "split": "development",
+      "tokens": 1762
+    },
+    {
+      "id": "vood-0010",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0011",
+      "split": "development",
+      "tokens": 1762
+    },
+    {
+      "id": "vood-0011",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0020",
+      "split": "validation",
+      "tokens": 1735
+    },
+    {
+      "id": "vood-0020",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0021",
+      "split": "validation",
+      "tokens": 1733
+    },
+    {
+      "id": "vood-0021",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0022",
+      "split": "validation",
+      "tokens": 1737
+    },
+    {
+      "id": "vood-0022",
+      "split": "validation",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0027",
+      "split": "development",
+      "tokens": 603
+    },
+    {
+      "id": "vood-0027",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0028",
+      "split": "development",
+      "tokens": 599
+    },
+    {
+      "id": "vood-0028",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0029",
+      "split": "development",
+      "tokens": 608
+    },
+    {
+      "id": "vood-0029",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0030",
+      "split": "development",
+      "tokens": 600
+    },
+    {
+      "id": "vood-0030",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0055",
+      "split": "development",
+      "tokens": 787
+    },
+    {
+      "id": "vood-0055",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0056",
+      "split": "development",
+      "tokens": 769
+    },
+    {
+      "id": "vood-0056",
+      "split": "development",
+      "tokens": 104
+    },
+    {
+      "id": "kcv-0057",
+      "split": "development",
+      "tokens": 777
+    },
+    {
+      "id": "vood-0057",
+      "split": "development",
+      "tokens": 112
+    },
+    {
+      "id": "kcv-0058",
+      "split": "development",
+      "tokens": 772
+    },
+    {
+      "id": "vood-0058",
+      "split": "development",
+      "tokens": 107
+    },
+    {
+      "id": "kcv-0063",
+      "split": "development",
+      "tokens": 1143
+    },
+    {
+      "id": "vood-0063",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0064",
+      "split": "development",
+      "tokens": 1146
+    },
+    {
+      "id": "vood-0064",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0065",
+      "split": "development",
+      "tokens": 1140
+    },
+    {
+      "id": "vood-0065",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0066",
+      "split": "development",
+      "tokens": 1136
+    },
+    {
+      "id": "vood-0066",
+      "split": "development",
+      "tokens": 113
+    },
+    {
+      "id": "kcv-0070",
+      "split": "validation",
+      "tokens": 1280
+    },
+    {
+      "id": "vood-0070",
+      "split": "validation",
+      "tokens": 125
+    },
+    {
+      "id": "kcv-0071",
+      "split": "validation",
+      "tokens": 1278
+    },
+    {
+      "id": "vood-0071",
+      "split": "validation",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0072",
+      "split": "validation",
+      "tokens": 1288
+    },
+    {
+      "id": "vood-0072",
+      "split": "validation",
+      "tokens": 133
+    },
+    {
+      "id": "kcv-0073",
+      "split": "validation",
+      "tokens": 1275
+    },
+    {
+      "id": "vood-0073",
+      "split": "validation",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0078",
+      "split": "validation",
+      "tokens": 1227
+    },
+    {
+      "id": "vood-0078",
+      "split": "validation",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0079",
+      "split": "validation",
+      "tokens": 1226
+    },
+    {
+      "id": "vood-0079",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0080",
+      "split": "validation",
+      "tokens": 1230
+    },
+    {
+      "id": "vood-0080",
+      "split": "validation",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0081",
+      "split": "validation",
+      "tokens": 1226
+    },
+    {
+      "id": "vood-0081",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0086",
+      "split": "validation",
+      "tokens": 1242
+    },
+    {
+      "id": "vood-0086",
+      "split": "validation",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0087",
+      "split": "validation",
+      "tokens": 1237
+    },
+    {
+      "id": "vood-0087",
+      "split": "validation",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0088",
+      "split": "validation",
+      "tokens": 1250
+    },
+    {
+      "id": "vood-0088",
+      "split": "validation",
+      "tokens": 130
+    },
+    {
+      "id": "kcv-0089",
+      "split": "validation",
+      "tokens": 1238
+    },
+    {
+      "id": "vood-0089",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0090",
+      "split": "validation",
+      "tokens": 1261
+    },
+    {
+      "id": "vood-0090",
+      "split": "validation",
+      "tokens": 130
+    },
+    {
+      "id": "kcv-0091",
+      "split": "validation",
+      "tokens": 1250
+    },
+    {
+      "id": "vood-0091",
+      "split": "validation",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0092",
+      "split": "validation",
+      "tokens": 1266
+    },
+    {
+      "id": "vood-0092",
+      "split": "validation",
+      "tokens": 135
+    },
+    {
+      "id": "kcv-0093",
+      "split": "validation",
+      "tokens": 1252
+    },
+    {
+      "id": "vood-0093",
+      "split": "validation",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0102",
+      "split": "development",
+      "tokens": 844
+    },
+    {
+      "id": "vood-0102",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0103",
+      "split": "development",
+      "tokens": 850
+    },
+    {
+      "id": "vood-0103",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0104",
+      "split": "development",
+      "tokens": 844
+    },
+    {
+      "id": "vood-0104",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0105",
+      "split": "development",
+      "tokens": 910
+    },
+    {
+      "id": "vood-0105",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0106",
+      "split": "development",
+      "tokens": 910
+    },
+    {
+      "id": "vood-0106",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0107",
+      "split": "development",
+      "tokens": 909
+    },
+    {
+      "id": "vood-0107",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0108",
+      "split": "development",
+      "tokens": 908
+    },
+    {
+      "id": "vood-0108",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0121",
+      "split": "validation",
+      "tokens": 925
+    },
+    {
+      "id": "vood-0121",
+      "split": "validation",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0122",
+      "split": "validation",
+      "tokens": 922
+    },
+    {
+      "id": "vood-0122",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0131",
+      "split": "development",
+      "tokens": 1809
+    },
+    {
+      "id": "vood-0131",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0132",
+      "split": "development",
+      "tokens": 1797
+    },
+    {
+      "id": "vood-0132",
+      "split": "development",
+      "tokens": 107
+    },
+    {
+      "id": "kcv-0133",
+      "split": "development",
+      "tokens": 1813
+    },
+    {
+      "id": "vood-0133",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0134",
+      "split": "development",
+      "tokens": 1811
+    },
+    {
+      "id": "vood-0134",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0135",
+      "split": "development",
+      "tokens": 1958
+    },
+    {
+      "id": "vood-0135",
+      "split": "development",
+      "tokens": 139
+    },
+    {
+      "id": "kcv-0136",
+      "split": "development",
+      "tokens": 1938
+    },
+    {
+      "id": "vood-0136",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0137",
+      "split": "development",
+      "tokens": 1933
+    },
+    {
+      "id": "vood-0137",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0138",
+      "split": "development",
+      "tokens": 1941
+    },
+    {
+      "id": "vood-0138",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0139",
+      "split": "development",
+      "tokens": 975
+    },
+    {
+      "id": "vood-0139",
+      "split": "development",
+      "tokens": 132
+    },
+    {
+      "id": "kcv-0140",
+      "split": "development",
+      "tokens": 969
+    },
+    {
+      "id": "vood-0140",
+      "split": "development",
+      "tokens": 126
+    },
+    {
+      "id": "kcv-0141",
+      "split": "development",
+      "tokens": 961
+    },
+    {
+      "id": "vood-0141",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0142",
+      "split": "development",
+      "tokens": 970
+    },
+    {
+      "id": "vood-0142",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0151",
+      "split": "development",
+      "tokens": 1236
+    },
+    {
+      "id": "vood-0151",
+      "split": "development",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0152",
+      "split": "development",
+      "tokens": 1236
+    },
+    {
+      "id": "vood-0152",
+      "split": "development",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0153",
+      "split": "development",
+      "tokens": 1239
+    },
+    {
+      "id": "vood-0153",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0154",
+      "split": "development",
+      "tokens": 1246
+    },
+    {
+      "id": "vood-0154",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0155",
+      "split": "development",
+      "tokens": 1238
+    },
+    {
+      "id": "vood-0155",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0156",
+      "split": "development",
+      "tokens": 1237
+    },
+    {
+      "id": "vood-0156",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0157",
+      "split": "development",
+      "tokens": 1244
+    },
+    {
+      "id": "vood-0157",
+      "split": "development",
+      "tokens": 125
+    },
+    {
+      "id": "kcv-0158",
+      "split": "development",
+      "tokens": 1237
+    },
+    {
+      "id": "vood-0158",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0163",
+      "split": "validation",
+      "tokens": 1179
+    },
+    {
+      "id": "vood-0163",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0164",
+      "split": "validation",
+      "tokens": 1186
+    },
+    {
+      "id": "vood-0164",
+      "split": "validation",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0165",
+      "split": "validation",
+      "tokens": 1182
+    },
+    {
+      "id": "vood-0165",
+      "split": "validation",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0166",
+      "split": "validation",
+      "tokens": 1186
+    },
+    {
+      "id": "vood-0166",
+      "split": "validation",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0179",
+      "split": "development",
+      "tokens": 1255
+    },
+    {
+      "id": "vood-0179",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0180",
+      "split": "development",
+      "tokens": 1252
+    },
+    {
+      "id": "vood-0180",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0181",
+      "split": "development",
+      "tokens": 1256
+    },
+    {
+      "id": "vood-0181",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0182",
+      "split": "development",
+      "tokens": 1257
+    },
+    {
+      "id": "vood-0182",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0183",
+      "split": "development",
+      "tokens": 1241
+    },
+    {
+      "id": "vood-0183",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0184",
+      "split": "development",
+      "tokens": 1241
+    },
+    {
+      "id": "vood-0184",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0185",
+      "split": "development",
+      "tokens": 1252
+    },
+    {
+      "id": "vood-0185",
+      "split": "development",
+      "tokens": 126
+    },
+    {
+      "id": "kcv-0186",
+      "split": "development",
+      "tokens": 1253
+    },
+    {
+      "id": "vood-0186",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0195",
+      "split": "development",
+      "tokens": 1246
+    },
+    {
+      "id": "vood-0195",
+      "split": "development",
+      "tokens": 113
+    },
+    {
+      "id": "kcv-0196",
+      "split": "development",
+      "tokens": 1248
+    },
+    {
+      "id": "vood-0196",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0197",
+      "split": "development",
+      "tokens": 1261
+    },
+    {
+      "id": "vood-0197",
+      "split": "development",
+      "tokens": 128
+    },
+    {
+      "id": "kcv-0198",
+      "split": "development",
+      "tokens": 1251
+    },
+    {
+      "id": "vood-0198",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0203",
+      "split": "development",
+      "tokens": 1478
+    },
+    {
+      "id": "vood-0203",
+      "split": "development",
+      "tokens": 112
+    },
+    {
+      "id": "kcv-0204",
+      "split": "development",
+      "tokens": 1489
+    },
+    {
+      "id": "vood-0204",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0205",
+      "split": "development",
+      "tokens": 1480
+    },
+    {
+      "id": "vood-0205",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0206",
+      "split": "development",
+      "tokens": 1481
+    },
+    {
+      "id": "vood-0206",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0222",
+      "split": "development",
+      "tokens": 1217
+    },
+    {
+      "id": "vood-0222",
+      "split": "development",
+      "tokens": 132
+    },
+    {
+      "id": "kcv-0223",
+      "split": "development",
+      "tokens": 1200
+    },
+    {
+      "id": "vood-0223",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0224",
+      "split": "development",
+      "tokens": 1203
+    },
+    {
+      "id": "vood-0224",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0225",
+      "split": "development",
+      "tokens": 1200
+    },
+    {
+      "id": "vood-0225",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0226",
+      "split": "development",
+      "tokens": 1154
+    },
+    {
+      "id": "vood-0226",
+      "split": "development",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0227",
+      "split": "development",
+      "tokens": 1154
+    },
+    {
+      "id": "vood-0227",
+      "split": "development",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0228",
+      "split": "development",
+      "tokens": 1152
+    },
+    {
+      "id": "vood-0228",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0229",
+      "split": "development",
+      "tokens": 2561
+    },
+    {
+      "id": "vood-0229",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0230",
+      "split": "development",
+      "tokens": 2559
+    },
+    {
+      "id": "vood-0230",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0231",
+      "split": "development",
+      "tokens": 2568
+    },
+    {
+      "id": "vood-0231",
+      "split": "development",
+      "tokens": 130
+    },
+    {
+      "id": "kcv-0232",
+      "split": "development",
+      "tokens": 2563
+    },
+    {
+      "id": "vood-0232",
+      "split": "development",
+      "tokens": 125
+    },
+    {
+      "id": "kcv-0233",
+      "split": "development",
+      "tokens": 3726
+    },
+    {
+      "id": "vood-0233",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0234",
+      "split": "development",
+      "tokens": 3714
+    },
+    {
+      "id": "vood-0234",
+      "split": "development",
+      "tokens": 111
+    },
+    {
+      "id": "kcv-0235",
+      "split": "development",
+      "tokens": 3722
+    },
+    {
+      "id": "vood-0235",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0236",
+      "split": "development",
+      "tokens": 3709
+    },
+    {
+      "id": "vood-0236",
+      "split": "development",
+      "tokens": 106
+    },
+    {
+      "id": "kcv-0240",
+      "split": "development",
+      "tokens": 2009
+    },
+    {
+      "id": "vood-0240",
+      "split": "development",
+      "tokens": 131
+    },
+    {
+      "id": "kcv-0241",
+      "split": "development",
+      "tokens": 2002
+    },
+    {
+      "id": "vood-0241",
+      "split": "development",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0242",
+      "split": "development",
+      "tokens": 2011
+    },
+    {
+      "id": "vood-0242",
+      "split": "development",
+      "tokens": 133
+    },
+    {
+      "id": "kcv-0243",
+      "split": "development",
+      "tokens": 2008
+    },
+    {
+      "id": "vood-0243",
+      "split": "development",
+      "tokens": 130
+    },
+    {
+      "id": "kcv-0250",
+      "split": "development",
+      "tokens": 1046
+    },
+    {
+      "id": "vood-0250",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0251",
+      "split": "development",
+      "tokens": 1047
+    },
+    {
+      "id": "vood-0251",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0252",
+      "split": "development",
+      "tokens": 1049
+    },
+    {
+      "id": "vood-0252",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0253",
+      "split": "development",
+      "tokens": 1047
+    },
+    {
+      "id": "vood-0253",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0254",
+      "split": "development",
+      "tokens": 463
+    },
+    {
+      "id": "vood-0254",
+      "split": "development",
+      "tokens": 138
+    },
+    {
+      "id": "kcv-0255",
+      "split": "development",
+      "tokens": 451
+    },
+    {
+      "id": "vood-0255",
+      "split": "development",
+      "tokens": 126
+    },
+    {
+      "id": "kcv-0256",
+      "split": "development",
+      "tokens": 448
+    },
+    {
+      "id": "vood-0256",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0257",
+      "split": "development",
+      "tokens": 451
+    },
+    {
+      "id": "vood-0257",
+      "split": "development",
+      "tokens": 126
+    },
+    {
+      "id": "kcv-0262",
+      "split": "development",
+      "tokens": 532
+    },
+    {
+      "id": "vood-0262",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0263",
+      "split": "development",
+      "tokens": 535
+    },
+    {
+      "id": "vood-0263",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0268",
+      "split": "validation",
+      "tokens": 476
+    },
+    {
+      "id": "vood-0268",
+      "split": "validation",
+      "tokens": 113
+    },
+    {
+      "id": "kcv-0269",
+      "split": "validation",
+      "tokens": 492
+    },
+    {
+      "id": "vood-0269",
+      "split": "validation",
+      "tokens": 129
+    },
+    {
+      "id": "kcv-0270",
+      "split": "validation",
+      "tokens": 474
+    },
+    {
+      "id": "vood-0270",
+      "split": "validation",
+      "tokens": 111
+    },
+    {
+      "id": "kcv-0271",
+      "split": "validation",
+      "tokens": 483
+    },
+    {
+      "id": "vood-0271",
+      "split": "validation",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0285",
+      "split": "development",
+      "tokens": 477
+    },
+    {
+      "id": "vood-0285",
+      "split": "development",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0286",
+      "split": "development",
+      "tokens": 476
+    },
+    {
+      "id": "vood-0286",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0287",
+      "split": "development",
+      "tokens": 484
+    },
+    {
+      "id": "vood-0287",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0291",
+      "split": "development",
+      "tokens": 595
+    },
+    {
+      "id": "vood-0291",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0292",
+      "split": "development",
+      "tokens": 594
+    },
+    {
+      "id": "vood-0292",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0293",
+      "split": "development",
+      "tokens": 607
+    },
+    {
+      "id": "vood-0293",
+      "split": "development",
+      "tokens": 132
+    },
+    {
+      "id": "kcv-0294",
+      "split": "development",
+      "tokens": 594
+    },
+    {
+      "id": "vood-0294",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0299",
+      "split": "development",
+      "tokens": 974
+    },
+    {
+      "id": "vood-0299",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0300",
+      "split": "development",
+      "tokens": 974
+    },
+    {
+      "id": "vood-0300",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0301",
+      "split": "development",
+      "tokens": 973
+    },
+    {
+      "id": "vood-0301",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0306",
+      "split": "development",
+      "tokens": 1265
+    },
+    {
+      "id": "vood-0306",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0307",
+      "split": "development",
+      "tokens": 1270
+    },
+    {
+      "id": "vood-0307",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0315",
+      "split": "validation",
+      "tokens": 1096
+    },
+    {
+      "id": "vood-0315",
+      "split": "validation",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0316",
+      "split": "validation",
+      "tokens": 1092
+    },
+    {
+      "id": "vood-0316",
+      "split": "validation",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0317",
+      "split": "validation",
+      "tokens": 1092
+    },
+    {
+      "id": "vood-0317",
+      "split": "validation",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0318",
+      "split": "validation",
+      "tokens": 1103
+    },
+    {
+      "id": "vood-0318",
+      "split": "validation",
+      "tokens": 128
+    },
+    {
+      "id": "kcv-0335",
+      "split": "validation",
+      "tokens": 1161
+    },
+    {
+      "id": "vood-0335",
+      "split": "validation",
+      "tokens": 110
+    },
+    {
+      "id": "kcv-0336",
+      "split": "validation",
+      "tokens": 1170
+    },
+    {
+      "id": "vood-0336",
+      "split": "validation",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0337",
+      "split": "validation",
+      "tokens": 1167
+    },
+    {
+      "id": "vood-0337",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0338",
+      "split": "validation",
+      "tokens": 1167
+    },
+    {
+      "id": "vood-0338",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0350",
+      "split": "validation",
+      "tokens": 1111
+    },
+    {
+      "id": "vood-0350",
+      "split": "validation",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0351",
+      "split": "validation",
+      "tokens": 1106
+    },
+    {
+      "id": "vood-0351",
+      "split": "validation",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0352",
+      "split": "validation",
+      "tokens": 1115
+    },
+    {
+      "id": "vood-0352",
+      "split": "validation",
+      "tokens": 125
+    },
+    {
+      "id": "kcv-0353",
+      "split": "validation",
+      "tokens": 1114
+    },
+    {
+      "id": "vood-0353",
+      "split": "validation",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0365",
+      "split": "development",
+      "tokens": 1071
+    },
+    {
+      "id": "vood-0365",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0366",
+      "split": "development",
+      "tokens": 1066
+    },
+    {
+      "id": "vood-0366",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0367",
+      "split": "development",
+      "tokens": 1071
+    },
+    {
+      "id": "vood-0367",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0368",
+      "split": "development",
+      "tokens": 1068
+    },
+    {
+      "id": "vood-0368",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0389",
+      "split": "development",
+      "tokens": 1125
+    },
+    {
+      "id": "vood-0389",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0390",
+      "split": "development",
+      "tokens": 1116
+    },
+    {
+      "id": "vood-0390",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0391",
+      "split": "development",
+      "tokens": 1118
+    },
+    {
+      "id": "vood-0391",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0392",
+      "split": "development",
+      "tokens": 1116
+    },
+    {
+      "id": "vood-0392",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0393",
+      "split": "development",
+      "tokens": 1106
+    },
+    {
+      "id": "vood-0393",
+      "split": "development",
+      "tokens": 137
+    },
+    {
+      "id": "kcv-0394",
+      "split": "development",
+      "tokens": 1100
+    },
+    {
+      "id": "vood-0394",
+      "split": "development",
+      "tokens": 131
+    },
+    {
+      "id": "kcv-0395",
+      "split": "development",
+      "tokens": 1078
+    },
+    {
+      "id": "vood-0395",
+      "split": "development",
+      "tokens": 109
+    },
+    {
+      "id": "kcv-0396",
+      "split": "development",
+      "tokens": 1093
+    },
+    {
+      "id": "vood-0396",
+      "split": "development",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0397",
+      "split": "development",
+      "tokens": 2730
+    },
+    {
+      "id": "vood-0397",
+      "split": "development",
+      "tokens": 121
+    },
+    {
+      "id": "kcv-0398",
+      "split": "development",
+      "tokens": 2715
+    },
+    {
+      "id": "vood-0398",
+      "split": "development",
+      "tokens": 106
+    },
+    {
+      "id": "kcv-0399",
+      "split": "development",
+      "tokens": 2725
+    },
+    {
+      "id": "vood-0399",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0400",
+      "split": "development",
+      "tokens": 2721
+    },
+    {
+      "id": "vood-0400",
+      "split": "development",
+      "tokens": 112
+    },
+    {
+      "id": "kcv-0405",
+      "split": "development",
+      "tokens": 1146
+    },
+    {
+      "id": "vood-0405",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0406",
+      "split": "development",
+      "tokens": 1142
+    },
+    {
+      "id": "vood-0406",
+      "split": "development",
+      "tokens": 123
+    },
+    {
+      "id": "kcv-0407",
+      "split": "development",
+      "tokens": 1137
+    },
+    {
+      "id": "vood-0407",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0408",
+      "split": "development",
+      "tokens": 1145
+    },
+    {
+      "id": "vood-0408",
+      "split": "development",
+      "tokens": 126
+    },
+    {
+      "id": "kcv-0423",
+      "split": "development",
+      "tokens": 1066
+    },
+    {
+      "id": "vood-0423",
+      "split": "development",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0424",
+      "split": "development",
+      "tokens": 1062
+    },
+    {
+      "id": "vood-0424",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0425",
+      "split": "development",
+      "tokens": 1062
+    },
+    {
+      "id": "vood-0425",
+      "split": "development",
+      "tokens": 114
+    },
+    {
+      "id": "kcv-0426",
+      "split": "validation",
+      "tokens": 1071
+    },
+    {
+      "id": "vood-0426",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0427",
+      "split": "validation",
+      "tokens": 1078
+    },
+    {
+      "id": "vood-0427",
+      "split": "validation",
+      "tokens": 125
+    },
+    {
+      "id": "kcv-0428",
+      "split": "validation",
+      "tokens": 1070
+    },
+    {
+      "id": "vood-0428",
+      "split": "validation",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0429",
+      "split": "validation",
+      "tokens": 1077
+    },
+    {
+      "id": "vood-0429",
+      "split": "validation",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0433",
+      "split": "development",
+      "tokens": 1082
+    },
+    {
+      "id": "vood-0433",
+      "split": "development",
+      "tokens": 110
+    },
+    {
+      "id": "kcv-0434",
+      "split": "development",
+      "tokens": 1088
+    },
+    {
+      "id": "vood-0434",
+      "split": "development",
+      "tokens": 116
+    },
+    {
+      "id": "kcv-0435",
+      "split": "development",
+      "tokens": 1099
+    },
+    {
+      "id": "vood-0435",
+      "split": "development",
+      "tokens": 127
+    },
+    {
+      "id": "kcv-0436",
+      "split": "development",
+      "tokens": 1094
+    },
+    {
+      "id": "vood-0436",
+      "split": "development",
+      "tokens": 122
+    },
+    {
+      "id": "kcv-0437",
+      "split": "development",
+      "tokens": 1160
+    },
+    {
+      "id": "vood-0437",
+      "split": "development",
+      "tokens": 117
+    },
+    {
+      "id": "kcv-0438",
+      "split": "development",
+      "tokens": 1163
+    },
+    {
+      "id": "vood-0438",
+      "split": "development",
+      "tokens": 120
+    },
+    {
+      "id": "kcv-0439",
+      "split": "development",
+      "tokens": 1162
+    },
+    {
+      "id": "vood-0439",
+      "split": "development",
+      "tokens": 119
+    },
+    {
+      "id": "kcv-0440",
+      "split": "development",
+      "tokens": 1167
+    },
+    {
+      "id": "vood-0440",
+      "split": "development",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0443",
+      "split": "validation",
+      "tokens": 1138
+    },
+    {
+      "id": "vood-0443",
+      "split": "validation",
+      "tokens": 118
+    },
+    {
+      "id": "kcv-0444",
+      "split": "validation",
+      "tokens": 1135
+    },
+    {
+      "id": "vood-0444",
+      "split": "validation",
+      "tokens": 115
+    },
+    {
+      "id": "kcv-0445",
+      "split": "validation",
+      "tokens": 1144
+    },
+    {
+      "id": "vood-0445",
+      "split": "validation",
+      "tokens": 124
+    },
+    {
+      "id": "kcv-0446",
+      "split": "validation",
+      "tokens": 1134
+    },
+    {
+      "id": "vood-0446",
+      "split": "validation",
+      "tokens": 114
+    }
+  ],
+  "loss_validation_examples": 106,
+  "max_sequence": 4096,
+  "model": {
+    "files_sha256": {
+      "added_tokens.json": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b",
+      "config.json": "ceb97c46fe17f523ac42c0f0254fd18d9589f8725f0bbbe0bef541f8ef84547a",
+      "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "model.safetensors": "f212cf6fb9923281a09c135e05d43a052ee5ef7121f5b1dc0b0fb2de80f97cfd",
+      "model.safetensors.index.json": "7edb73f1af3c860b1344ece4abe04b258246afdfeba4cb39d3b84a0459890bee",
+      "special_tokens_map.json": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "tokenizer.json": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf",
+      "tokenizer_config.json": "f7c61e32b7a17d19bf8e7037dcb74079a833e53ea9801f24008cac68458f03b7",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "path": "/Users/mac/.cache/huggingface/hub/models--mlx-community--Qwen2.5-3B-Instruct-4bit/snapshots/4f83f8f146fdf28b512a06562b671d7af4fab457",
+    "repo": "mlx-community/Qwen2.5-3B-Instruct-4bit",
+    "revision": "4f83f8f146fdf28b512a06562b671d7af4fab457"
+  },
+  "policy": "Development-only training; observed validation for selection. No fresh-test claim.",
+  "seed": 20261101,
+  "source_manifest_sha256": "4e14284edd70c0a778018ba443dcf5a842f01876165226bd5794fec0a2007112",
+  "study": "mlx-lora-feasibility-v1",
+  "train_examples": 262,
+  "train_labels": {
+    "F": 84,
+    "T": 46,
+    "X": 132
+  },
+  "train_labels_by_task": {
+    "KCV": {
+      "F": 84,
+      "T": 46,
+      "X": 1
+    },
+    "VOOD": {
+      "X": 131
+    }
+  },
+  "validation_examples": 106
+}

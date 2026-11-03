@@ -5,12 +5,32 @@
 | Deliverable | Location |
 | --- | --- |
 | Final code and tests | [src/secure_rag](src/secure_rag), [tests](tests) |
-| Training, validation and test splits | [Split files and data preparation](data/README.md) |
+| Dataset and splits | [Training IDs](data/splits/train_ids.txt), [validation IDs](data/splits/validation_ids.txt), [test IDs](data/splits/test_ids.txt), [data setup](data/README.md) |
 | IEEE paper | [PDF](papers/SECURE_RAG_IEEE_Paper.pdf) |
 | Springer-style paper | [PDF](papers/SECURE_RAG_Springer_Style_Paper.pdf) |
 | Presentation | [PowerPoint](presentation/SECURE_RAG_Minimalist_Presentation.pptx) |
 
-The final implementation includes the six-task benchmark, fresh-claim evaluation, and Apple Silicon LoRA trial. Their run instructions are in [protocols](protocols). On KCV validation, the archived LoRA trial scored 42/53 (79.25%) versus 34/53 (64.15%) for the matched base. The papers document the evaluation and its limitations.
+## Getting started
+
+Use Git and Python 3.11 or later to clone the repository and run the tests. The tests and dataset preparation run without a model.
+
+```bash
+git clone https://github.com/iTulsi/SECURE-RAG.git
+cd SECURE-RAG
+PYTHONPATH=src python3 -m unittest discover -s tests -q
+```
+
+The benchmark has 897 development, 804 validation, and 2,367 test examples. The LoRA trial trains on 262 KCV/VOOD examples from development. The split files track example IDs. Follow the [data preparation instructions](data/README.md) to regenerate the prompts and labels from the pinned official SECURE dataset.
+
+| Experiment | Run instructions |
+| --- | --- |
+| Six-task SECURE benchmark | [Full benchmark protocol](protocols/Full_Benchmark_Protocol.md) |
+| Fresh CVE claim evaluation | [Fresh claim protocol](protocols/Fresh_Claim_Evaluation_Protocol.md) |
+| LoRA on Apple Silicon | [LoRA trial protocol](protocols/LoRA_M3_Trial_Protocol.md) |
+
+## Reported results
+
+The archived LoRA trial scored **42/53 (79.25%)** on KCV validation, compared with **34/53 (64.15%)** for the matched base. The fresh-claim cited retrieval candidate scored **109/160 (68.13%)**, compared with **146/160 (91.25%)** for the full-record baseline. The papers document these experiments separately from the earlier retrieval pilot below.
 
 Research implementation by **Tulsi Tomar, B.Tech CSE (Cybersecurity), Bennett University**, based on [SECURE: Benchmarking Large Language Models for Cybersecurity](https://github.com/aiforsec/SECURE) (ACSAC 2024).
 
@@ -29,7 +49,7 @@ The development pilot contains **144 examples: 72 KCV and 72 VOOD**, grouped by 
 
 Decision review adds **26 correct KCV answers** over the repaired evidence-first run: **36.11 percentage points**. Nine KCV errors remain. This is a combined pipeline result, including retained model decisions and deterministic evidence checks. VOOD is routed to X when context is absent.
 
-Start with [the latest report](reports/Latest_Results.md), [run evidence and provenance](reports/evidence/README.md), and [the code](src/secure_rag). The latest run completed on the author's Mac. Terminal-reconstructed predictions are identified as such; they are not the original response cache. Full raw responses from the latest run remain on the Mac. Holdout performance is pending.
+Start with [the pilot report](reports/Latest_Results.md), [run evidence and provenance](reports/evidence/README.md), and [the code](src/secure_rag). The pilot run completed on the author's Mac. Terminal-reconstructed predictions are identified as such; they are not the original response cache. Full raw responses from the pilot run remain on the Mac. Holdout performance is pending.
 
 ## KCV and VOOD
 
@@ -64,7 +84,7 @@ The prepared corpus has **6,812 passages** with source URLs, entity IDs, record 
 
 External retrieval scored 65.28% overall. The 93.75% result uses original benchmark CVE context and decision review, not external-data training or fine-tuning. KEV and ATT&CK were imported but supplied no selected top-five passages in the recorded full-set retrieval audit.
 
-## Setup and prepare the benchmark
+## Set up the earlier retrieval pilot
 
 Requirements: **Python 3.11+**, Git, and Ollama with `qwen2.5:3b-instruct`. Ollama must support [JSON-schema output](https://docs.ollama.com/capabilities/structured-outputs).
 
@@ -127,17 +147,20 @@ Keep pilot and holdout metrics separate. Do not tune against holdout labels. Hol
 | kcv_facts.py | Narrow evidence-based CVSS checks |
 | runner.py | Endpoint calls, verdict validation, checkpoint/resume |
 | evaluation.py, comparison.py | Metrics and paired changes |
-| cli.py | Experiment commands |
+| benchmark.py, benchmark_data.py, benchmark_metrics.py | Six-task preparation, inference, and scoring |
+| fresh_data.py, claim_study.py | Fresh CVE data preparation and evaluation |
+| lora_trial.py | Adapter training data and matched evaluation |
+| cli.py | Retrieval pilot commands |
 
 ```bash
 python3.11 -m unittest discover -s tests -v
 python3.11 -m secure_rag --help
 ```
 
-**48 tests passed** before publication. They cover success/failure paths, wrong IDs, input preservation, cache isolation, and independence from task names/answer labels. Ruff E4/E7/E9/F passed. GitHub Actions runs tests and lint on Python 3.11 and 3.13. Legacy E0–E4 commands remain in [RUN_ON_MAC.md](RUN_ON_MAC.md); this README and the latest report supersede historical statuses.
+The automated tests cover success/failure paths, wrong IDs, input preservation, cache isolation, and independence from task names/answer labels. Ruff E4/E7/E9/F passed. GitHub Actions runs tests and lint on Python 3.11 and 3.13. Legacy E0–E4 commands remain in [RUN_ON_MAC.md](RUN_ON_MAC.md); this README and the pilot report supersede historical statuses.
 
 ## Scope and attribution
 
-The method was developed after inspecting pilot errors. The 87.50% KCV score is a development-pilot result, not a full-benchmark score or proof of outperforming the base paper. Current external CVE snapshots can differ from historical benchmark context. Source-disjoint validation is the next check.
+The method was developed after inspecting pilot errors. The 87.50% KCV score is a development-pilot result, not a full-benchmark score or proof of outperforming the base paper. Current external CVE snapshots can differ from historical benchmark context. The older retrieval pilot holdout remains unmeasured. The LoRA score comes from observed validation, and the frozen adapter still needs evaluation on a previously unobserved CVE collection.
 
 Original implementation code is MIT licensed. Upstream benchmark/data/model licenses remain with their owners. Base paper: [ACSAC 2024 DOI](https://doi.org/10.1109/ACSAC63791.2024.00019). [Official benchmark](https://github.com/aiforsec/SECURE).
